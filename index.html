@@ -274,34 +274,32 @@
             width: 90%;
             max-width: 1200px;
             font-weight: 600;
-       
-            /* These are the key changes for scrollable links */
+
             display: flex;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Improved scrolling on iOS */
-            white-space: nowrap; /* Prevents wrapping */
-            gap: 2rem; /* Adjust space between links */
-            padding-bottom: 0.5rem; /* Add some space for the scrollbar */
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+            gap: 2rem;
+            padding-bottom: 0.5rem;
         }
 
-        /* Ensure individual links don't shrink */
         .hero-nav-links a {
             display: block;
             flex-shrink: 0;
-            padding: 0.75rem 0.5rem;
-            padding-left: 0;
+            padding: 0.5rem 0; /* less horizontal padding */
+            margin: 0 0.5rem;  /* add spacing around each link */
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            width: fit-content; /* this makes the border only as wide as the text */
             transition: all 0.3s;
-            overflow-x: auto;
             white-space: nowrap;
-            -ms-overflow-style: none;     /* IE 10+ */
-            scrollbar-width: none;        /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .hero-nav-links::-webkit-scrollbar {
-            display: none;                /* Chrome, Safari */
+            display: none;
         }
 
         .hero-nav-links a:hover {
@@ -310,14 +308,12 @@
             border-bottom-color: var(--color-primary-blue);
         }
 
-        /* Remove the old grid styles */
         .hero-nav-grid {
             display: flex;
-            gap: 1rem;
+            gap: 2rem;
         }
 
-        /* Use a media query to apply the original grid layout for tablets and desktops */
-       @media (min-width: 768px) {
+        @media (min-width: 768px) {
             .hero-nav-links {
                 display: block;
                 overflow-x: auto;
@@ -327,7 +323,14 @@
 
             .hero-nav-grid {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(4, auto);
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .hero-nav-links a {
+                margin: 0 auto;
+                text-align: center;
             }
         }
 
