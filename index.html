@@ -918,11 +918,15 @@
 
             const legendPadding = 10;
             const legendItemSpacing = 120;
-            const legendY = margin.top - 10; // vertical position of legend
-            const legendStartX = margin.left;
+            const legendY = margin.top - 20; // vertical position of legend
+            const cityNames = Object.keys(chartData);
 
-            Object.keys(chartData).forEach((city, i) => {
-                const x = legendStartX + i * legendItemSpacing;
+            // Calculate total width of the legend
+            const totalLegendWidth = (cityNames.length - 1) * legendItemSpacing + cityNames.length * 60;
+            const legendStartX = (margin.left + width / 2) - (totalLegendWidth / 2);
+
+            cityNames.forEach((city, i) => {
+                const x = legendStartX + i * (legendItemSpacing + 30);
 
                 // Circle marker
                 const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -935,7 +939,7 @@
                 // Text label
                 const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
                 label.setAttribute('x', x + 12);
-                label.setAttribute('y', legendY + 4); // vertical alignment tweak
+                label.setAttribute('y', legendY + 4);
                 label.setAttribute('class', 'axis-text');
                 label.textContent = city;
                 legend.appendChild(label);
