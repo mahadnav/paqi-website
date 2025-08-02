@@ -863,7 +863,7 @@
         const svg = document.getElementById('timeline-chart');
         if (svg) {
             const years = Array.from({length: 8}, (_, i) => 2017 + i);
-            const margin = {top: 20, right: 20, bottom: 30, left: 40}, width = 800 - margin.left - margin.right, height = 400 - margin.top - margin.bottom;
+            const margin = {top: 20, right: 20, bottom: 30, left: 60}, width = 800 - margin.left - margin.right, height = 400 - margin.top - margin.bottom;
             const yMax = 200;
             const xScale = (year) => margin.left + (years.indexOf(year) / (years.length - 1)) * width;
             const yScale = (value) => margin.top + height - (value / yMax) * height;
@@ -885,7 +885,7 @@
                 if (val === 5) line.setAttribute('stroke-dasharray', '4 4');
                 g.appendChild(line);
                 const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                label.setAttribute('x', margin.left - 10); label.setAttribute('y', yScale(val) + 4);
+                label.setAttribute('x', margin.left - 15); label.setAttribute('y', yScale(val) + 4);
                 label.setAttribute('class', 'axis-text'); label.setAttribute('text-anchor', 'end');
                 label.textContent = val;
                 if (val === 5) { label.textContent = '5 (WHO)'; label.setAttribute('font-weight', 'bold'); }
@@ -911,6 +911,32 @@
                     });
                 }
             }, { threshold: 0.6 }).observe(svg);
+
+            // --- Legend ---
+            const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+            Object.keys(chartData).forEach((city, index) => {
+                const legendY = margin.top + index * 20;
+
+                // Legend Color Box
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rect.setAttribute("x", width + margin.left + 20);
+                rect.setAttribute("y", legendY);
+                rect.setAttribute("width", 14);
+                rect.setAttribute("height", 14);
+                rect.setAttribute("fill", cityColors[city]);
+                legendG.appendChild(rect);
+
+                // Legend Text
+                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                text.setAttribute("x", width + margin.left + 40);
+                text.setAttribute("y", legendY + 12);
+                text.setAttribute("class", "axis-text");
+                text.textContent = city;
+                legendG.appendChild(text);
+            });
+
+            svg.appendChild(legendG);
         }
         
         // --- PNG Map Logic ---
