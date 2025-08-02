@@ -142,9 +142,10 @@
             display: block; background: none; border: none; cursor: pointer; padding: 0;
             color: var(--color-text-light); transition: color 0.3s;
         }
-        .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); width: 1.25rem; height: 1.25rem;}
+        .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); }
         
         .mobile-menu-icon { width: 1.75rem; height: 1.75rem; }
+        @media (min-width: 768px) { .mobile-menu-icon { display: block; width: 1.25rem; height: auto;} }
         @media (min-width: 768px) { .mobile-menu-button { display: none; } }
             .mobile-menu { 
                 background-color: white; padding: 1rem; border-radius: 8px; 
