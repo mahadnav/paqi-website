@@ -946,6 +946,16 @@
             });
 
             svg.appendChild(legend);
+
+            const yAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            yAxisLabel.setAttribute("transform", `rotate(-90)`);
+            yAxisLabel.setAttribute("x", -height / 2);  // center along y-axis
+            yAxisLabel.setAttribute("y", 20);  // distance from y-axis
+            yAxisLabel.setAttribute("text-anchor", "middle");
+            yAxisLabel.setAttribute("class", "axis-text");
+            yAxisLabel.textContent = "PM2.5 Concentration (µg/m³)";
+
+            svg.appendChild(yAxisLabel);
         }
         
         // --- PNG Map Logic ---
