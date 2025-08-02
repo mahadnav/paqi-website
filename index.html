@@ -870,7 +870,7 @@
 
             const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
             years.forEach((year, i) => {
-                if (i % 2 === 0) {
+                if (i % 1 === 0) {
                     const tick = document.createElementNS("http://www.w3.org/2000/svg", "text");
                     tick.setAttribute('x', xScale(year)); tick.setAttribute('y', height + margin.top + 20);
                     tick.setAttribute('class', 'axis-text'); tick.setAttribute('text-anchor', 'middle');
