@@ -113,16 +113,15 @@
             padding-bottom: 0px;
         }
 
-        @media (min-width: 768px) { .header-scrolled .header-logo-text 
-            {
+        @media (min-width: 768px) { 
+            .header-logo-text {
             color: var(--color-primary-blue);
-            font-size: 1rem;
-            transition: 1s ease;
+            font-size: 1.5rem;
             } 
 
-              .header-scrolled .header-logo-text {
-                font-size: 1.5rem;
-                color: var(--color-text-light); /* prevent override */
+            .header-scrolled .header-logo-text {
+            font-size: 1rem;
+            color: var(--color-primary-blue); /* prevent override */
             }
         }
 
