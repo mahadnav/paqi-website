@@ -308,20 +308,19 @@
         }
 
         /* Use a media query to apply the original grid layout for tablets and desktops */
-        @media (min-width: 768px) {
+       @media (min-width: 768px) {
             .hero-nav-links {
-                /* Reset mobile-specific styles for larger screens */
                 display: block;
                 overflow-x: visible;
                 white-space: normal;
+                -ms-overflow-style: none;     /* IE 10+ */
+                scrollbar-width: none;        /* Firefox */
             }
+
             .hero-nav-links::-webkit-scrollbar {
-            display: none;
+                display: none;                /* Chrome, Safari */
             }
-            .hero-nav-links {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-                }
+
             .hero-nav-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
