@@ -309,16 +309,23 @@
 
         /* Use a media query to apply the original grid layout for tablets and desktops */
         @media (min-width: 768px) {
-        .hero-nav-links {
-            /* Reset mobile-specific styles for larger screens */
-            display: block;
-            overflow-x: visible;
-            white-space: normal;
-        }
-        .hero-nav-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-        }
+            .hero-nav-links {
+                /* Reset mobile-specific styles for larger screens */
+                display: block;
+                overflow-x: visible;
+                white-space: normal;
+            }
+            .hero-nav-links::-webkit-scrollbar {
+            display: none;
+            }
+            .hero-nav-links {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                }
+            .hero-nav-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         /* --- Impact Section --- */
