@@ -284,14 +284,16 @@
             padding-bottom: 0.5rem; /* Add some space for the scrollbar */
         }
 
-        /* Ensure individual links don't shrink */
-        .hero-nav-links a {
-            flex-shrink: 0;
-            padding: 0.75rem 0.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
+        /* Apply horizontal scroll only on small screens (mobile-first) */
+        .hero-nav-links {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            -ms-overflow-style: none;     /* IE 10+ */
+            scrollbar-width: none;        /* Firefox */
+        }
+        .hero-nav-links::-webkit-scrollbar {
+            display: none;                /* Chrome, Safari */
         }
 
         .hero-nav-links a:hover {
@@ -307,23 +309,17 @@
             gap: 1rem;
         }
 
-        /* Use a media query to apply the original grid layout for tablets and desktops */
-       @media (min-width: 768px) {
+        /* Grid layout for tablets and desktops */
+        @media (min-width: 768px) {
             .hero-nav-links {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-                -ms-overflow-style: none;     /* IE 10+ */
-                scrollbar-width: none;        /* Firefox */
-            }
-
-            .hero-nav-links::-webkit-scrollbar {
-                display: none !important;                /* Chrome, Safari */
+                overflow-x: visible;
+                white-space: normal;
             }
 
             .hero-nav-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
             }
         }
 
@@ -592,16 +588,16 @@
                 </div>
             </div>
         </section>
-        </section>
-            <div class="hero-nav-links">
-                <div class="hero-nav-grid">
-                    <a href="#impact" class="hero-nav-link">Our Impact</a>
-                    <a href="#map" class="hero-nav-link">Interactive Map</a>
-                    <a href="#chart" class="hero-nav-link">Latest Data</a>
-                    <a href="#partners" class="hero-nav-link">Our Partners</a>
-                </div>
+
+        <!-- Nav links below hero -->
+        <div class="hero-nav-links">
+            <div class="hero-nav-grid">
+                <a href="#impact" class="hero-nav-link">Our Impact</a>
+                <a href="#map" class="hero-nav-link">Interactive Map</a>
+                <a href="#chart" class="hero-nav-link">Latest Data</a>
+                <a href="#partners" class="hero-nav-link">Our Partners</a>
             </div>
-        </section>
+        </div>
 
         <section id="impact" class="impact-section container">
             <h2 class="section-headline animate-on-scroll">Our Data-Driven Impact</h2>
