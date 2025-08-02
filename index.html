@@ -885,7 +885,7 @@
                 if (val === 5) line.setAttribute('stroke-dasharray', '4 4');
                 g.appendChild(line);
                 const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                label.setAttribute('x', margin.left - 15); label.setAttribute('y', yScale(val) + 4);
+                label.setAttribute('x', margin.left - 15); label.setAttribute('y', yScale(val));
                 label.setAttribute('class', 'axis-text'); label.setAttribute('text-anchor', 'end');
                 label.textContent = val;
                 if (val === 5) { label.textContent = '5 (WHO)'; label.setAttribute('font-weight', 'bold'); }
