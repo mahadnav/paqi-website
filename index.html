@@ -862,7 +862,7 @@
         // --- SVG Chart Logic ---
         const svg = document.getElementById('timeline-chart');
         if (svg) {
-            const years = Array.from({length: 4}, (_, i) => 2017 + i);
+            const years = Array.from({length: 5}, (_, i) => 2017 + i);
             const margin = {top: 20, right: 20, bottom: 30, left: 40}, width = 800 - margin.left - margin.right, height = 400 - margin.top - margin.bottom;
             const yMax = 200;
             const xScale = (year) => margin.left + (years.indexOf(year) / (years.length - 1)) * width;
