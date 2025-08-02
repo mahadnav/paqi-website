@@ -912,31 +912,36 @@
                 }
             }, { threshold: 0.6 }).observe(svg);
 
-            // --- Legend ---
-            const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-            Object.keys(chartData).forEach((city, index) => {
-                const legendY = margin.top + index * 20;
+            // Legend
+            const legend = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-                // Legend Color Box
-                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                rect.setAttribute("x", width + margin.left);
-                rect.setAttribute("y", legendY);
-                rect.setAttribute("width", 14);
-                rect.setAttribute("height", 14);
-                rect.setAttribute("fill", cityColors[city]);
-                legendG.appendChild(rect);
+            const legendPadding = 10;
+            const legendItemSpacing = 120;
+            const legendY = margin.top - 10; // vertical position of legend
+            const legendStartX = margin.left;
 
-                // Legend Text
-                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                text.setAttribute("x", width + margin.left + 40);
-                text.setAttribute("y", legendY + 12);
-                text.setAttribute("class", "axis-text");
-                text.textContent = city;
-                legendG.appendChild(text);
+            Object.keys(chartData).forEach((city, i) => {
+                const x = legendStartX + i * legendItemSpacing;
+
+                // Circle marker
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', legendY);
+                circle.setAttribute('r', 6);
+                circle.setAttribute('fill', cityColors[city]);
+                legend.appendChild(circle);
+
+                // Text label
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute('x', x + 12);
+                label.setAttribute('y', legendY + 4); // vertical alignment tweak
+                label.setAttribute('class', 'axis-text');
+                label.textContent = city;
+                legend.appendChild(label);
             });
 
-            svg.appendChild(legendG);
+            svg.appendChild(legend);
         }
         
         // --- PNG Map Logic ---
