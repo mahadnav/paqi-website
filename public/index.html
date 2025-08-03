@@ -182,32 +182,45 @@
             .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } 
         }
 
-/* --- AQI Widget (Updated) --- */
+/* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
             position: absolute;
-            top: 10rem;
-            right: 14rem;
-            background: transparent;
-            backdrop-filter: blur(5px);
+            background: rgba(249, 250, 251, 0.5); /* Slightly lighter for better contrast */
+            backdrop-filter: blur(8px);
             color: var(--color-background-dark);
             padding: 1.25rem 1.5rem;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: var(--shadow-subtle);
-            width: 200px;
-            height: auto;
             font-family: 'Montserrat', sans-serif;
             z-index: 20;
             text-align: center;
-            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
+        /* --- Mobile Styles --- */
+        @media (max-width: 767px) {
+            .aqi-widget {
+                top: 8rem;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 240px;
+            }
+        }
+
+        /* --- Desktop Styles --- */
         @media (min-width: 768px) {
+            .aqi-widget {
+                top: 10rem;
+                right: 14rem;
+                width: 220px;
+            }
+
             .aqi-widget:hover {
                 box-shadow: var(--shadow-lifted);
-                transform: scale(0.9);
-                transition: transform 0.5s ease-in-out, box-shadow 0.5s;
-            }  
+                transform: scale(1.05); /* A more noticeable hover effect */
+            }
         }
         
 
