@@ -693,7 +693,7 @@
                 heroTextContent.style.opacity = '0';
                 setTimeout(() => {
                     const slideData = slides[currentSlide];
-                    heroTextContent.innerHTML = '<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>';
+                    heroTextContent.innerHTML = `<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>`;
                     heroTextContent.style.opacity = '1';
                     heroTextContent.style.transition = 'opacity 1s ease-in-out';
                 }, 800);
