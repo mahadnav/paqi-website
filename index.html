@@ -389,25 +389,34 @@
             background-color: white; /* Set a light background color for the section */
         }
 
-        /* Adjust the headline to be centered and have a background */
         .impact-section .section-headline {
+            /* Existing headline styles from before, plus new ones */
             font-size: clamp(1.5rem, 6vw, 3rem);
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto 60px auto;
             text-align: center;
-            color: var(--color-text-dark); /* Ensure it's a dark color */
-            
-            /* These styles create the "OUR IMPACT" box */
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background-color: var(--color-text-light);
-            border: 1px solid var(--color-border);
-            border-radius: 9999px; /* This makes it a rounded pill shape */
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 2rem; /* Adjust the margin to space it out from the cards */
+            position: relative; /* This is crucial for positioning the pseudo-elements */
+            display: flex; /* Using flexbox to align the text and lines */
+            align-items: center; /* Vertically center the text and lines */
+            justify-content: center; /* Horizontally center the text and lines */
+        }
+
+        /* Style the horizontal line before the text */
+        .impact-section .section-headline::before {
+            content: ''; /* Required for pseudo-elements */
+            flex-grow: 1; /* This makes the line expand to fill available space */
+            height: 1px; /* The thickness of the line */
+            background-color: var(--color-border); /* The color of the line */
+            margin-right: 1rem; /* Space between the line and the text */
+        }
+
+        /* Style the horizontal line after the text */
+        .impact-section .section-headline::after {
+            content: ''; /* Required for pseudo-elements */
+            flex-grow: 1; /* This makes the line expand to fill available space */
+            height: 1px; /* The thickness of the line */
+            background-color: var(--color-border); /* The color of the line */
+            margin-left: 1rem; /* Space between the text and the line */
         }
 
         .impact-section .section-headline:hover {
