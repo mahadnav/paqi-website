@@ -721,7 +721,7 @@
                 const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
                 const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
                 const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
-                const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1.1]);
+                const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1]);
                 const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).defined(d => d.value !== undefined);
                 g.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10));
                 const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
