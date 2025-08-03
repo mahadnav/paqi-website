@@ -727,7 +727,7 @@
                 const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
                 yAxisGroup.select(".domain").remove();
                 yAxisGroup.selectAll(".tick line").attr("stroke", "var(--color-border)").filter(d => d === 5).attr("stroke-dasharray", "4 4");
-                g.append("text").attr("transform", `rotate(-90)`).attr("y", 12).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
+                g.append("text").attr("transform", `rotate(-90)`).attr("y", -20).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
                 const chartArea = g.append("g").attr("class", "chart-area");
                 cities.forEach((city) => {
                     const data = years.map(year => ({ year: year, value: chartData[city][year] }));
