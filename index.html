@@ -470,7 +470,7 @@
                         </div>
                     </div>
                     <div class="map-container animate-on-scroll delay-1">
-                        <img src="pak.png" class="map-image" alt="Map of Pakistan with AQI hotspots">
+                        <img src="utils/pak.png" class="map-image" alt="Map of Pakistan with AQI hotspots">
                         <div id="map-interactive-layer"></div>
                         <div id="map-tooltip" class="map-tooltip"></div>
                     </div>
@@ -766,9 +766,9 @@
                         const data = mapCityData[city];
                         let level = 'Good';
                         if (data.aqi > 5) level = 'Moderate'; if (data.aqi > 35) level = 'Unhealthy for Sensitive Groups'; if (data.aqi > 55) level = 'Unhealthy';
-                        mapTooltip.innerHTML = '<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>';
-                        mapTooltip.style.left = '${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px';
-                        mapTooltip.style.top = '${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px';
+                        mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>`;
+                        mapTooltip.style.left = `${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px`;
+                        mapTooltip.style.top = `${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px`;
                         mapTooltip.classList.add('is-visible');
                     });
                     marker.addEventListener('mouseleave', () => mapTooltip.classList.remove('is-visible'));
