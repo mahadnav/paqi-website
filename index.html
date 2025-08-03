@@ -614,7 +614,7 @@
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // --- AQI Widget Logic (Updated) ---
+            // --- AQI Widget Logic (Corrected & Secure) ---
             const aqiValueEl = document.getElementById('aqi-value');
             const aqiCategoryEl = document.getElementById('aqi-category');
             const aqiPollutantEl = document.getElementById('aqi-pollutant');
@@ -630,11 +630,12 @@
             }
 
             function fetchAqi(latitude, longitude) {
-                const apiUrl = '/api/aqi?lat=${latitude}&lon=${longitude}';
+                // This relative URL calls your secure backend proxy
+                const apiUrl = `/api/aqi?lat=${latitude}&lon=${longitude}`;
                 
                 fetch(apiUrl)
                     .then(response => {
-                        if (!response.ok) throw new Error('API Error: ${response.status}');
+                        if (!response.ok) throw new Error(`API Error: ${response.status}`);
                         return response.json();
                     })
                     .then(data => {
@@ -644,15 +645,14 @@
                             const pm25 = pollution.p2?.conc ?? 'N/A';
                             const city = data.data.city;
                             const state = data.data.state;
-
                             const aqiInfo = getAqiInfo(aqi);
 
                             aqiValueEl.textContent = aqi;
-                            aqiValueEl.className = 'aqi-value ${aqiInfo.className}';
+                            aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
                             aqiCategoryEl.textContent = aqiInfo.category;
-                            aqiCategoryEl.className = 'aqi-category ${aqiInfo.className}';
-                            aqiPollutantEl.innerHTML = 'PM2.5: <strong>${pm25}</strong> µg/m³';
-                            aqiCityEl.textContent = '${city}, ${state}';
+                            aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
+                            aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`;
+                            aqiCityEl.textContent = `${city}, ${state}`;
                         } else {
                             throw new Error('API returned non-success status');
                         }
@@ -661,7 +661,7 @@
                         console.error('Error fetching AQI data:', error);
                         aqiValueEl.textContent = '--';
                         aqiCategoryEl.textContent = 'Unavailable';
-                        aqiCityEl.textContent = 'Could not load data.';
+                        aqiCityEl.textContent = 'Could not load data. Is the server running?';
                         aqiPollutantEl.textContent = '';
                     });
             }
