@@ -601,25 +601,34 @@
 <body>
 
     <header class="site-header" id="main-header">
-        <div class="header-container">
-            <a href="#" class="header-logo">
-                <img class="header-logo-icon" src="logo.png" />
-                <span class="header-logo-text">Pakistan Air Quality Initiative</span>
-            </a>
-            <nav class="header-nav">
-                <a href="#impact" class="header-nav-link">Impact</a>
-                <a href="#map" class="header-nav-link">Map</a>
-                <a href="#chart" class="header-nav-link">Data</a>
-                <a href="#blog" class="header-nav-link">Our Insights</a>
-                <a href="#team" class="header-nav-link">Our Team</a>
-            </nav>
-            <a href="#footer" class="header-cta">Let's Chat</a>
-            <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    <div class="header-container">
+        <!-- Logo -->
+        <a href="#" class="header-logo">
+            <img class="header-logo-icon" src="logo.png" alt="Logo" />
+            <span class="header-logo-text">Pakistan Air Quality Initiative</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="header-nav">
+            <a href="#impact" class="header-nav-link">Impact</a>
+            <a href="#map" class="header-nav-link">Map</a>
+            <a href="#chart" class="header-nav-link">Data</a>
+            <a href="#blog" class="header-nav-link">Our Insights</a>
+            <a href="#team" class="header-nav-link">Our Team</a>
+        </nav>
+
+        <!-- CTA Button -->
+        <a href="#footer" class="header-cta">Let's Chat</a>
+
+        <!-- Mobile Menu Button (visible on mobile only) -->
+        <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
+            <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16" />
             </svg>
-        </div>
-        <div id="mobile-menu" class="mobile-menu hidden"></div>
-    </header>
+        </button>
+    </div>
 
     <main>
         <section id="hero" class="hero-section">
