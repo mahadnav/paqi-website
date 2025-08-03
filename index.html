@@ -745,11 +745,16 @@
             }
             drawChart();
 
-            // --- PNG Map Logic (Updated Tooltip) ---
+            // --- PNG Map Logic ---
             const mapLayer = document.getElementById('map-interactive-layer');
             const mapTooltip = document.getElementById('map-tooltip');
             if (mapLayer) {
-                const mapCityData = { 'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Islamabad'] }, 'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] }, 'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Peshawar'] }, 'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] }, };
+                const mapCityData = { 
+                    'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Karachi'] }, 
+                    'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] }, 
+                    'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Lahore'] }, 
+                    'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] }, 
+                };
                 Object.keys(mapCityData).forEach(city => {
                     const data = mapCityData[city];
                     const marker = document.createElement('div');
