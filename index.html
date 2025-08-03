@@ -78,9 +78,6 @@
             
             /* The transition property now covers padding as well */
             transition: padding 1s ease, box-shadow 1s ease;
-            
-            /* The border will now be part of the header-container */
-            /* We will remove border-bottom: 0.2px solid rgba(255,255,255,0.3); from here */
         }
 
         .header-scrolled {
@@ -135,6 +132,7 @@
         
         /* --- Header Color Change Logic --- */
         .header-logo-text { font-size: 1.5rem; font-weight: 500; color: var(--color-text-light); transition: color 0.3s; }
+        .header-logo-text:hover { color: var(--color-primary-blue); }
         .header-scrolled .header-logo-text { color: var(--color-primary-blue); }
 
         .header-nav { display: none; }
