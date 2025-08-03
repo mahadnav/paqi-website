@@ -707,39 +707,36 @@
             document.querySelectorAll('.animate-on-scroll').forEach(el => animationObserver.observe(el));
             
             // --- Data for Map & Chart ---
-            const chartData = { Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58}, 
-                                Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22}, 
-                                Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78}, 
-                                Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41} };
+            const chartData = { Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58}, Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22}, Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78}, Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41} };
             const cityColors = { Lahore: 'var(--color-lahore)', Karachi: 'var(--color-karachi)', Peshawar: 'var(--color-peshawar)', 'Islamabad': 'var(--color-islamabad)' };
 
-            // --- SVG Chart Logic ---
+            // --- D3.js Chart Logic ---
             function drawChart() {
                 const svg = d3.select("#timeline-chart"), margin = {top: 60, right: 20, bottom: 60, left: 50}, width = +svg.attr("width") - margin.left - margin.right, height = +svg.attr("height") - margin.top - margin.bottom;
-                const g = svg.append("g").attr("transform", 'translate(${margin.left},${margin.top})');
+                const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
                 const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
                 const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
                 const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1.1]);
                 const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).defined(d => d.value !== undefined);
-                g.append("g").attr("class", "x-axis").attr("transform", 'translate(0,${height})').call(d3.axisBottom(x).tickSize(0).tickPadding(10));
+                g.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10));
                 const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
                 yAxisGroup.select(".domain").remove();
                 yAxisGroup.selectAll(".tick line").attr("stroke", "var(--color-border)").filter(d => d === 5).attr("stroke-dasharray", "4 4");
-                g.append("text").attr("transform", 'rotate(-90)').attr("y", 0).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
+                g.append("text").attr("transform", `rotate(-90)`).attr("y", 0).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
                 const chartArea = g.append("g").attr("class", "chart-area");
                 cities.forEach((city) => {
                     const data = years.map(year => ({ year: year, value: chartData[city][year] }));
-                    d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html('<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}');
-                    const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", 'line-${city}').attr("d", line).style("stroke", cityColors[city]);
+                    d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
+                    const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", `line-${city}`).attr("d", line).style("stroke", cityColors[city]);
                     const pathLength = path.node().getTotalLength();
                     path.attr("stroke-dasharray", pathLength + " " + pathLength).attr("stroke-dashoffset", pathLength);
-                    chartArea.selectAll('.point-${city}').data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", 'data-point point-${city}').attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text('${d.value.toFixed(1)}'); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
+                    chartArea.selectAll(`.point-${city}`).data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", `data-point point-${city}`).attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text(`${d.value.toFixed(1)}`); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
                 });
                 const chartObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => { if (entry.isIntersecting) { d3.selectAll(".data-line").transition().duration(2500).ease(d3.easeCubic).delay((d, i) => i * 150).attr("stroke-dashoffset", 0); chartObserver.unobserve(entry.target); } });
                 }, { threshold: 0.5 });
                 chartObserver.observe(document.getElementById('timeline-chart'));
-                d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select('#line-${city}').classed("is-dimmed", !isActive); });
+                d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select(`#line-${city}`).classed("is-dimmed", !isActive); });
             }
             drawChart();
 
