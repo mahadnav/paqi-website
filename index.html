@@ -134,7 +134,7 @@
         .header-logo-icon { height: 2rem; width: 2rem; color: var(--color-secondary-blue); }
         
         /* --- Header Color Change Logic --- */
-        .header-logo-text { font-size: 1.5rem; font-weight: 700; color: var(--color-text-light); transition: color 0.3s; }
+        .header-logo-text { font-size: 1.5rem; font-weight: 500; color: var(--color-text-light); transition: color 0.3s; }
         .header-scrolled .header-logo-text { color: var(--color-primary-blue); }
 
         .header-nav { display: none; }
@@ -156,7 +156,7 @@
         .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); }
         
         .mobile-menu-icon { width: 1.75rem; height: 1.75rem; }
-        @media (min-width: 768px) { header.scrolled .mobile-menu-icon { display: block; width: 1.25rem; height: auto;} }
+        @media (min-width: 768px) { header.scrolled .mobile-menu-icon { display: block; width: 1rem; height: auto;} }
         @media (min-width: 768px) { .mobile-menu-button { display: none; } }
             .mobile-menu { 
                 background-color: white; padding: 1rem; border-radius: 8px; 
@@ -564,9 +564,9 @@
                 <a href="#team" class="header-nav-link">Our Team</a>
             </nav>
             <a href="#footer" class="header-cta">Let's Chat</a>
-            <button id="mobile-menu-button" class="mobile-menu-button">
-                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+            <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
         </div>
         <div id="mobile-menu" class="mobile-menu hidden"></div>
     </header>
