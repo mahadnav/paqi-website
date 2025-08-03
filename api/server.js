@@ -13,7 +13,7 @@ const PORT = 3000;
 app.use(cors());
 
 // Serve static files (HTML, CSS, images) from the current directory
-app.use(express.static(__dirname));
+app.use(express.static('public'));
 
 // Define the proxy endpoint
 app.get('/api/aqi', async (req, res) => {
