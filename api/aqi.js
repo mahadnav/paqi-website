@@ -1,7 +1,7 @@
 const axios = require('axios');
-require('dotenv').config(); // For local development
+require('dotenv').config();
 
-export default async function handler(request, response) {
+module.exports = async (request, response) => {
   try {
     const { lat, lon } = request.query;
 
@@ -18,11 +18,10 @@ export default async function handler(request, response) {
 
     const apiResponse = await axios.get(apiUrl);
     
-    // Send the successful response from IQAir back to the frontend
     response.status(200).json(apiResponse.data);
 
   } catch (error) {
     console.error('API Route Error:', error.message);
     response.status(500).json({ message: 'Failed to fetch AQI data' });
   }
-}
+};
