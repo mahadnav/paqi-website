@@ -332,7 +332,6 @@
             white-space: nowrap; /* Prevents wrapping */
             gap: 2rem; /* Adjust space between links */
             padding-bottom: 0.5rem; /* Add some space for the scrollbar */
-            justify-content: flex-start;
         }
 
         /* Ensure individual links don't shrink */
@@ -364,19 +363,21 @@
             gap: 1rem;
         }
 
-        /* Use a media query to apply the original grid layout for tablets and desktops */
-       @media (min-width: 768px) {
+        /* Desktop (≥768px): grid layout */
+        @media (min-width: 768px) {
             .hero-nav-links {
                 display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-                text-align: left;
-                margin-right: 160px
+                overflow: visible;
+                white-space: normal;
+                padding-left: 0;
+                padding-right: 0;
             }
 
             .hero-nav-grid {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+                max-width: calc(100% - 160px); /* Stop before "Let's Chat" */
             }
         }
 
