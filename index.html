@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -21,6 +20,14 @@
             --color-text-light: #FFFFFF;
             --color-border: #DDE1E7;
             
+            /* AQI Colors */
+            --aqi-good: #22c55e;
+            --aqi-moderate: #facc15;
+            --aqi-usg: #f97316;
+            --aqi-unhealthy: #ef4444;
+            --aqi-very-unhealthy: #a855f7;
+            --aqi-hazardous: #7e22ce;
+
             /* Mapping city colors */
             --color-lahore: #D94743;
             --color-karachi: #F49F0A;
@@ -72,11 +79,7 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            
-            /* Default padding for the header (large on top, large on bottom) */
             padding: 2rem 0;
-            
-            /* The transition property now covers padding as well */
             transition: padding 1s ease, box-shadow 1s ease;
         }
 
@@ -84,8 +87,6 @@
             background-color: rgba(220, 220, 220, 0.2);
             backdrop-filter: blur(5px);
             box-shadow: var(--shadow-subtle);
-            
-            /* Reduced padding for a smaller header when scrolled */
             padding: 0.5rem 0;
         }
 
@@ -93,14 +94,12 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            
             display: flex;
             justify-content: space-between;
             align-items: center;
-            
             border-bottom: 0.2px solid rgba(255,255,255,0.3);
             padding-bottom: 50px;
-            transition: border-bottom 0.3s ease; /* Add transition for the border */
+            transition: border-bottom 0.3s ease;
         }
 
         .header-scrolled .header-container {
@@ -114,7 +113,6 @@
             font-size: 1rem;
             transition: color 1s, font-size 1s;
         }
-
         .header-logo-icon { height: 1.5rem; width: 1.5rem; color: var(--color-secondary-blue); }
         }
 
@@ -127,7 +125,6 @@
 
         .header-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
         .header-logo-icon { height: 2rem; width: 2rem; color: var(--color-secondary-blue); }
-        
         .header-logo-text { font-size: 1.5rem; font-weight: 500; color: var(--color-text-light); transition: color 0.3s; }
         .header-logo-text:hover { color: var(--color-primary-blue); }
         .header-scrolled .header-logo-text { color: var(--color-primary-blue); }
@@ -147,382 +144,93 @@
         }
         .header-cta:hover { background-color: var(--color-primary-blue); transform: scale(1.1); border: none;}
         
-        .mobile-menu-button {
-            display: block;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            color: var(--color-text-light);
-            transition: color 0.3s;
-        }
-
-        .header-scrolled .mobile-menu-button {
-            color: var(--color-primary-blue);
-        }
-
-        .mobile-menu-icon {
-            width: 1.75rem;
-            height: 1.75rem;
-        }
-
-        @media (min-width: 768px) {
-            .mobile-menu-button {
-                display: none;
-            }
-
-            .mobile-menu-icon {
-                width: 1rem;
-                height: auto;
-            }
-        }
-
-        .mobile-menu {
-            background-color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow-lifted);
-            margin-top: 1rem;
-            width: 90%;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .mobile-menu.hidden {
-            display: none;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--color-text-dark);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 6px;
-        }
-
-        .mobile-menu a:hover {
-            background-color: var(--color-background-light);
-        }
+        .mobile-menu-button { display: block; background: none; border: none; cursor: pointer; padding: 0; color: var(--color-text-light); transition: color 0.3s; }
+        .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); }
+        .mobile-menu-icon { width: 1.75rem; height: 1.75rem; }
+        @media (min-width: 768px) { .mobile-menu-button { display: none; } .mobile-menu-icon { width: 1rem; height: auto; } }
+        .mobile-menu { background-color: white; padding: 1rem; border-radius: 8px; box-shadow: var(--shadow-lifted); margin-top: 1rem; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .mobile-menu.hidden { display: none; }
+        .mobile-menu a { display: block; padding: 0.75rem 1rem; color: var(--color-text-dark); text-decoration: none; font-weight: 600; border-radius: 6px; }
+        .mobile-menu a:hover { background-color: var(--color-background-light); }
 
 /* --- Hero Section --- */
-        .hero-section {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0 1rem; /* Add padding for small screens */
-        }
-
-        .hero-slide-container {
-        position: absolute;
-        inset: 0;
-        }
-
-        .hero-slide {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            z-index: 0;
-            transform: scale(1);
-            transition: opacity 2s ease-in-out, transform 10s ease-in-out;
-        }
-
-        .hero-slide.active {
-        opacity: 1;
-        z-index: 1;
-        transform: scale(1.2);
-        }
-
-        .is-loaded .hero-slide.active {
-            opacity: 1;
-            z-index: 1;
-            
-            /* This is the zoom effect, which will be animated from `scale(1)` */
-            transform: scale(1.2);
-        }
-
-        .hero-overlay {
-        position: absolute;
-        inset: 0;
-        background-color: rgba(0, 20, 40, 0.6);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 1200px;
-            
-            /* Resetting the old positioning */
-            margin-top: 0; 
-            justify-content: flex-start;
-            text-align: left; /* Ensure text inside is left-aligned */
-        }
-
-        .hero-text-container {
-            max-width: 650px; /* Or a different value like 800px, but less than the hero-content max-width */
-            margin: 0; /* Align left */
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .hero-section {
-                padding: 0; /* Remove padding on larger screens */
-                align-items: center; /* Re-center content on large screens if desired */
-                }
-            }
-        .hero-content h1 { 
-            font-size: clamp(2.5rem, 8vw, 4.5rem); 
-            color: var(--color-text-light); 
-            margin-left: 0; /* Remove the old fixed margin-left */
-            text-align: left;
-            font-weight: 500;
-        }
-
-        .hero-content p { 
-            font-size: clamp(1rem, 3vw, 1.25rem); 
-            color: var(--color-text-light); 
-            opacity: 0.9; 
-            max-width: 700px; 
-            margin: 0 0 1rem 0; /* Adjust margin for mobile to align left */
-            text-align: left;
-        }
-
-        .hero-content .cta-button {
-            margin-left: 0; /* Remove the old fixed margin-left */
-            text-decoration: none;
-            color: #DDE1E7;
-        }
+        .hero-section { height: 100vh; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 1rem; }
+        .hero-slide-container { position: absolute; inset: 0; }
+        .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; z-index: 0; transform: scale(1); transition: opacity 2s ease-in-out, transform 10s ease-in-out; }
+        .hero-slide.active { opacity: 1; z-index: 1; transform: scale(1.2); }
+        .is-loaded .hero-slide.active { opacity: 1; z-index: 1; transform: scale(1.2); }
+        .hero-overlay { position: absolute; inset: 0; background-color: rgba(0, 20, 40, 0.6); }
+        .hero-content { position: relative; z-index: 10; width: 90%; max-width: 1200px; margin-top: 0; justify-content: flex-start; text-align: left; }
+        .hero-text-container { max-width: 650px; margin: 0; width: 100%; }
+        @media (min-width: 768px) { .hero-section { padding: 0; align-items: center; } }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); color: var(--color-text-light); margin-left: 0; text-align: left; font-weight: 500; }
+        .hero-content p { font-size: clamp(1rem, 3vw, 1.25rem); color: var(--color-text-light); opacity: 0.9; max-width: 700px; margin: 0 0 1rem 0; text-align: left; }
+        .hero-content .cta-button { margin-left: 0; text-decoration: none; color: #DDE1E7; }
         .hero-content .cta-button:hover { transform: translateY(-3px); color: var(--color-primary-blue); font-weight: bolder;}
-        
-        .hero-nav-links {
-            position: absolute;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            width: 90%;
-            max-width: 1200px;
-            font-weight: 600;
-        
-            /* These are the key changes for scrollable links */
-            display: flex;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch; /* Improved scrolling on iOS */
-            white-space: nowrap; /* Prevents wrapping */
-            gap: 1rem; /* Adjust space between links */
-        }
+        .hero-nav-links { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 10; width: 90%; max-width: 1200px; font-weight: 600; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; gap: 1rem; }
+        .hero-nav-links a { display: flex; flex-shrink: 0; padding: 0rem 0 1rem 0; color: rgba(255, 255, 255, 0.8); text-decoration: none; border-bottom: 2px solid rgba(255, 255, 255, 0.3); width: 200px; transition: all 0.3s; white-space: nowrap; font-weight: 400; }
+        .hero-nav-links::-webkit-scrollbar { display: none; }
+        .hero-nav-links a:hover { color: white; font-weight: 600; border-bottom-color: var(--color-primary-blue); width: 225px; transition: all 0.5s; }
+        .hero-nav-grid { display: flex; gap: 1rem; }
+        @media (min-width: 768px) { .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } }
 
-        /* Ensure individual links don't shrink */
-        .hero-nav-links a {
-            display: flex;
-            flex-shrink: 0;
-            padding: 0rem 0 1rem 0; /* Top | Right | Bottom | Left */
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            width: 200px;
-            transition: all 0.3s;
-            white-space: nowrap;
-            font-weight: 400;
-        }
-
-        .hero-nav-links::-webkit-scrollbar {
-            display: none; /* Chrome, Safari */
-        }
-
-        .hero-nav-links a:hover {
-            color: white;
-            font-weight: 600;
-            border-bottom-color: var(--color-primary-blue);
-            width: 225px;
-            transition: all 0.5s;
-        }
-
-        /* Remove the old grid styles */
-        .hero-nav-grid {
-            display: flex;
-            gap: 1rem;
-        }
-
-        /* Desktop (≥768px): grid layout */
-        @media (min-width: 768px) {
-            .hero-nav-links {
-                display: block;
-                overflow: visible;
-                white-space: normal;
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            .hero-nav-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1rem;
-                width: 100%;
-                max-width: 1200px;
-                margin: 0 auto;
-                display: flex;
-                justify-content: space-between;
-            }
-        }
-
-        /* --- AQI Widget --- */
+/* --- AQI Widget (Updated) --- */
         .aqi-widget {
             position: absolute;
             top: 10rem;
             right: 14rem;
             background: transparent;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(5px);
             color: var(--color-background-dark);
-            padding: 1rem 1.25rem;
-            border-radius: 25px;
+            padding: 1.25rem 1.5rem;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
-            max-width: 200px;
-            font-family: 'Monteserrat', sans-serif;
-            z-index: 20;
-        }
-
-        .aqi-widget:hover {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transform: scale(1.1);
-            transition: all 0.5s ease-in-out;
-        }  
-
-        .aqi-title {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .aqi-value {
+            box-shadow: var(--shadow-subtle);
+            width: 200px;
+            height: auto;
             font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--color-primary-blue);
+            z-index: 20;
+            text-align: center;
+            transform: scale(0.8);
         }
 
-        .aqi-status {
-            font-size: 0.9rem;
-            color: #666;
+        @media (min-width: 768px) {
+            .aqi-widget:hover {
+                box-shadow: var(--shadow-lifted);
+                transform: scale(0.9);
+                transition: transform 0.5s ease-in-out, box-shadow 0.5s;
+            }  
         }
+        
 
+        .aqi-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-primary-blue); }
+        .aqi-value { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
+        .aqi-category { font-size: 1.1rem; font-weight: 600; margin-top: 0.25rem; text-transform: uppercase; }
+        .aqi-pollutant { font-size: 0.8rem; opacity: 0.7; margin-top: 0.75rem; }
+        .aqi-city { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; font-family: var(--font-main); }
+        
+        .aqi-good { color: var(--aqi-good); }
+        .aqi-moderate { color: var(--aqi-moderate); }
+        .aqi-usg { color: var(--aqi-usg); }
+        .aqi-unhealthy { color: var(--aqi-unhealthy); }
+        .aqi-very-unhealthy { color: var(--aqi-very-unhealthy); }
+        .aqi-hazardous { color: var(--aqi-hazardous); }
 
 /* --- Impact Section --- */
-        .impact-section { 
-            background-color: white; /* Set a light background color for the section */
-        }
-
-        .impact-section .section-headline {
-            /* Existing headline styles from before, plus new ones */
-            font-size: 2rem;
-            font-weight: 600;
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-            text-align: center;
-            position: relative; /* This is crucial for positioning the pseudo-elements */
-            display: flex; /* Using flexbox to align the text and lines */
-            align-items: center; /* Vertically center the text and lines */
-            justify-content: center; /* Horizontally center the text and lines */
-        }
-
-        /* Style the horizontal line before the text */
-        .impact-section .section-headline::before {
-            content: ''; /* Required for pseudo-elements */
-            flex-grow: 1; /* This makes the line expand to fill available space */
-            height: 1px; /* The thickness of the line */
-            background-color: var(--color-border); /* The color of the line */
-            margin-right: 1rem; /* Space between the line and the text */
-        }
-
-        /* Style the horizontal line after the text */
-        .impact-section .section-headline::after {
-            content: ''; /* Required for pseudo-elements */
-            flex-grow: 1; /* This makes the line expand to fill available space */
-            height: 1px; /* The thickness of the line */
-            background-color: var(--color-border); /* The color of the line */
-            margin-left: 1rem; /* Space between the text and the line */
-        }
-
-        .impact-grid {
-            /* Use a fluid grid that wraps on smaller screens */
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for slightly wider cards */
-            gap: 1.5rem; /* Tighter gap between cards */
-            text-align: center;
-        }
-
-        .impact-item { 
-            /* Base styles for the card */
-            padding: 2.5rem 2rem; /* More generous padding inside the card */
-            border-radius: 12px; /* Rounded corners */
-            color: var(--color-text-light); /* White text for contrast on colored backgrounds */
-            box-shadow: var(--shadow-subtle);
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 100%; /* Ensure all cards have the same height */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Add some specific colors to match the reference image */
-        .impact-item:nth-child(1) { background-color: var(--color-primary-blue); } /* Green */
-        .impact-item:nth-child(2) { background-color: var(--color-primary-blue); } /* Yellow */
-        .impact-item:nth-child(3) { background-color: var(--color-primary-blue); } /* Blue */
-        .impact-item:nth-child(4) { background-color: var(--color-primary-blue); } /* Gray */
-        .impact-item:nth-child(5) { background-color: var(--color-primary-blue); } /* Red */
-        .impact-item:nth-child(6) { background-color: var(--color-primary-blue); } /* Lighter Gray */
-
-
-        .impact-item:hover { 
-            transform: translateY(-5px); /* Adjusted for a subtler lift */
-            box-shadow: var(--shadow-lifted); 
-        }
-
-        /* Hide the icon from your original design */
-        .impact-item-icon {
-            display: none;
-        }
-
-        .impact-item-number {
-            font-family: var(--font-heading); /* Use the heading font */
-            font-size: clamp(2rem, 7vw, 3rem); /* Make the number responsive */
-            font-weight: 500; /* Bolder numbers */
-            color: inherit; /* Inherit the text color (which is white from the parent) */
-            margin-bottom: 0.5rem; 
-            line-height: 1; /* Tighter line height for the number */
-        }
-
-        .impact-item-text {
-            font-size: 1rem;
-            color: inherit; /* Inherit the text color (which is white) */
-            opacity: 1; /* Remove the opacity for full visibility */
-            max-width: 250px; /* Constrain the width of the text inside the card */
-            margin: 0;
-        }
-
-        /* A separate style for the "More monitors coming soon" headline */
-        .impact-section .more-monitors-headline {
-            font-size: 24px; font-weight: 300; padding-top: 30px; text-align: center;
-            color: var(--color-text-dark);
-        }
-
-        .impact-section .more-monitors-headline:hover {
-            transform: scale(1.1);
-            font-weight: 500;
-            color: var(--color-primary-blue);
-            transition: 1s;
-        }
+        .impact-section { background-color: white; }
+        .impact-section .section-headline { font-size: 2rem; font-weight: 600; max-width: 1200px; margin: 0 auto 60px auto; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; }
+        .impact-section .section-headline::before, .impact-section .section-headline::after { content: ''; flex-grow: 1; height: 1px; background-color: var(--color-border); }
+        .impact-section .section-headline::before { margin-right: 1rem; }
+        .impact-section .section-headline::after { margin-left: 1rem; }
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; text-align: center; }
+        .impact-item { padding: 2.5rem 2rem; border-radius: 12px; color: var(--color-text-light); box-shadow: var(--shadow-subtle); transition: transform 0.3s, box-shadow 0.3s; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .impact-item:nth-child(1), .impact-item:nth-child(2), .impact-item:nth-child(3) { background-color: var(--color-primary-blue); }
+        .impact-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lifted); }
+        .impact-item-icon { display: none; }
+        .impact-item-number { font-family: var(--font-heading); font-size: clamp(2rem, 7vw, 3rem); font-weight: 500; color: inherit; margin-bottom: 0.5rem; line-height: 1; }
+        .impact-item-text { font-size: 1rem; color: inherit; opacity: 1; max-width: 250px; margin: 0; }
+        .impact-section .more-monitors-headline { font-size: 24px; font-weight: 300; padding-top: 30px; text-align: center; color: var(--color-text-dark); }
+        .impact-section .more-monitors-headline:hover { transform: scale(1.1); font-weight: 500; color: var(--color-primary-blue); transition: 1s; }
 
 /* --- Partners Section --- */
         .partners-section { padding: 80px 0; overflow: hidden; text-align: center; }
@@ -532,15 +240,7 @@
         .partner-logo { max-height: 50px; width: auto; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s; }
         .partner-logo:hover { filter: grayscale(0); opacity: 1; transform: scale(1.1); }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        @media (max-width: 768px) {
-            .partners-slider { padding: 0 20px; }
-            .slide-track { gap: 40px; }
-            .slide { width: 100px; height: 80px; }
-            .partner-logo { max-height: 40px; }
-            .slide-track:hover { animation-play-state: paused; }
-            
-        }
+        @media (max-width: 768px) { .partners-slider { padding: 0 20px; } .slide-track { gap: 40px; } .slide { width: 100px; height: 80px; } .partner-logo { max-height: 40px; } .slide-track:hover { animation-play-state: paused; } }
 
 /* --- Map Section --- */
         .map-section { background-color: var(--color-background-dark); padding: 50px 0; }
@@ -562,118 +262,52 @@
         .map-tooltip { position: absolute; background: rgba(255,255,255,0.98); backdrop-filter: blur(8px); color: var(--color-text-dark); padding: 10px 15px; border-radius: 8px; box-shadow: var(--shadow-lifted); border: 1px solid var(--color-border); width: 240px; text-align: left; pointer-events: none; opacity: 0; transform: translateY(10px) scale(0.95); transition: opacity 0.3s, transform 0.3s; transform-origin: bottom center; }
         .map-tooltip.is-visible { opacity: 1; transform: translateY(0) scale(1); }
         .map-tooltip h4 { font-size: 1rem; margin-bottom: 4px; }
-        .map-tooltip p { font-size: 0.9rem; color: var(--color-text-dark); margin: 0; }
+        .map-tooltip p { font-size: 0.9rem; margin: 0; }
         .map-tooltip .aqi-value { font-weight: 700; font-size: 1.1rem; }
+        .map-tooltip .unit { font-size: 0.8rem; opacity: 0.7; margin-left: 4px;}
 
 /* --- Chart Section --- */
         .chart-wrapper {width: 90%; max-width: 1200px; margin: 100px auto 0;}
         .dataviz-section { overflow: hidden; background: var(--color-background-light); align-content: center;}
-        .chart-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        @media (min-width: 768px) {
-            .chart-svg { overflow: visible; width: max-content; height: 550px; 
-            }
-        }
+        .chart-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+        @media (min-width: 768px) { .chart-svg { overflow: visible; width: max-content; height: 550px; } }
         .chart-container {flex: 1 1 50%; padding: 2rem;}
         .chart-header { flex: 1 1 50%;padding-right: 2rem; }
-        .chart-legend { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; margin-top: 40px; justify-content: left;}
+        .chart-legend { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: -30px; margin-top: 60px; justify-content: center;}
         .legend-item { color: var(--color-background-dark); display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: opacity 0.3s; }
         .legend-item.is-dimmed { opacity: 0.3; }
         .legend-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
         .chart-svg-container { position: relative; margin-top: -30px;}
         .chart-svg { overflow: visible; width: max-content; }
-        .chart-svg .grid-line { stroke: var(--color-border); }
-        .chart-svg .axis-text { font-family: var(--font-main); fill: var(--color-text-dark); font-size: 12px; }
         .chart-svg .data-line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.4s var(--transition-curve); }
         .chart-svg .data-line.is-dimmed { opacity: 0.15; }
         .chart-svg .data-point { fill: var(--color-text-light); stroke: var(--color-text-dark); stroke-width: 2px; transition: r 0.3s, opacity 0.4s; }
         .chart-svg .data-point.is-dimmed { opacity: 0; }
         .chart-svg .data-point:hover { r: 6; }
         .chart-svg .tooltip-text { fill: var(--color-text-dark); font-size: 12px; font-weight: 500; }
+        .y-axis .tick line { stroke: var(--color-border); }
+        .y-axis .tick:first-of-type line { stroke-dasharray: 4 4; }
+        .y-axis .tick text { font-family: var(--font-main); fill: var(--color-text-dark); font-size: 12px; }
+        .y-axis .domain { display: none; }
+        .tooltip { position: absolute; background: rgba(255, 255, 255, 0.9); padding: 5px 10px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); pointer-events: none; opacity: 0; }
 
-        .y-axis .tick line {
-            stroke: var(--color-border);
-        }
-        .y-axis .tick:first-of-type line {
-            stroke-dasharray: 4 4; /* WHO guideline line */
-        }
-        .y-axis .tick text {
-            font-family: var(--font-main);
-            fill: var(--color-text-dark);
-            font-size: 12px;
-        }
-        .y-axis .domain {
-            display: none;
-        }
-        .tooltip {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            pointer-events: none;
-            opacity: 0;
-        }
-
-/* --- Blog Section --- */
-        .blog-section {
-            background-color: var(--color-text-light);
-        }
-
-        .blog-section .section-headline {
-            /* Existing headline styles from before, plus new ones */
-            font-size: 2rem;
-            font-weight: 600;
-            max-width: 1200px;
-            margin: 0 auto 60px auto;
-            text-align: center;
-            position: relative; /* This is crucial for positioning the pseudo-elements */
-            display: flex; /* Using flexbox to align the text and lines */
-            align-items: center; /* Vertically center the text and lines */
-            justify-content: center; /* Horizontally center the text and lines */
-        }
-
-        /* Style the horizontal line before the text */
-        .blog-section .section-headline::before {
-            content: ''; /* Required for pseudo-elements */
-            flex-grow: 1; /* This makes the line expand to fill available space */
-            height: 1px; /* The thickness of the line */
-            background-color: var(--color-border); /* The color of the line */
-            margin-right: 1rem; /* Space between the line and the text */
-        }
-
-        /* Style the horizontal line after the text */
-        .blog-section .section-headline::after {
-            content: ''; /* Required for pseudo-elements */
-            flex-grow: 1; /* This makes the line expand to fill available space */
-            height: 1px; /* The thickness of the line */
-            background-color: var(--color-border); /* The color of the line */
-            margin-left: 1rem; /* Space between the text and the line */
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .blog-card { background: white; border-radius: 12px; box-shadow: var(--shadow-subtle); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+/* --- Blog & Team Sections --- */
+        .blog-section, .team-section { background-color: var(--color-text-light); }
+        .blog-section .section-headline, .team-section .section-headline { font-size: 2rem; font-weight: 600; max-width: 1200px; margin: 0 auto 60px auto; text-align: center; position: relative; display: flex; align-items: center; justify-content: center; }
+        .blog-section .section-headline::before, .blog-section .section-headline::after { content: ''; flex-grow: 1; height: 1px; background-color: var(--color-border); }
+        .blog-section .section-headline::before { margin-right: 1rem; }
+        .blog-section .section-headline::after { margin-left: 1rem; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .blog-card { background: white; border-radius: 12px; box-shadow: var(--shadow-subtle); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; }
         .blog-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lifted); }
         .blog-card-image-wrapper { overflow: hidden; height: 200px; }
         .blog-card-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
         .blog-card:hover .blog-card-image { transform: scale(1.05); }
-        .blog-card-content { padding: 1.5rem; text-decoration: none;}
-        .blog-card-content h3 { font-size: 1.25rem; margin-bottom: 0.5rem; transition: color 0.3s; text-decoration: none;}
+        .blog-card-content { padding: 1.5rem; }
+        .blog-card h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; color: black; margin-bottom: 0.5rem; transition: color 0.3s; }
         .blog-card:hover h3 { color: var(--color-secondary-blue); }
-        .blog-card-content p { font-size: 0.95rem; margin-bottom: 1rem; opacity: 0.8; text-decoration: none;}
-        .blog-card-link { font-weight: 700; color: var(--color-primary-blue); text-decoration: none; }
-
-        /* --- Team Section --- */
-        .team-section { background-color: inherit; }
+        .blog-card p { font-size: 0.95rem; margin-bottom: 1rem; opacity: 0.8; }
+        .blog-card-link { font-weight: 600; color: var(--color-primary-blue); text-decoration: none; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
         .team-card { text-align: center; transition: transform 0.3s; }
         .team-card:hover { transform: scale(1.05); }
@@ -681,13 +315,14 @@
         .team-card h4 { font-size: 1.2rem; margin-bottom: 0.25rem; }
         .team-card p { font-size: 0.9rem; color: var(--color-secondary-blue); opacity: 1; }
 
-        /* --- Footer --- */
+/* --- Footer --- */
         .site-footer { background: var(--color-primary-blue); color: rgba(255, 255, 255, 0.7); padding: 25px 0; margin-bottom: -75px;}
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         .footer-col h4 { color: white; font-size: 1.1rem; margin-bottom: 1rem; }
         .footer-col p, .footer-col a { font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); text-decoration: none; }
         .footer-col a:hover { color: white; }
-        .footer-col ul { list-style: none; space-y: 0.5rem; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
         .footer-socials { display: flex; gap: 1rem; margin-top: 1rem; }
         .footer-socials a { color: rgba(255, 255, 255, 0.7); }
         .footer-socials a:hover { color: white; }
@@ -704,10 +339,9 @@
     <header class="site-header" id="main-header">
         <div class="header-container">
             <a href="#" class="header-logo">
-                <img class="header-logo-icon" src="logo.png" alt="Logo" />
+                <img class="header-logo-icon" src="utils/logo.png" alt="Logo" />
                 <span class="header-logo-text">Pakistan Air Quality Initiative</span>
             </a>
-
             <nav class="header-nav">
                 <a href="#impact" class="header-nav-link">Impact</a>
                 <a href="#map" class="header-nav-link">Map</a>
@@ -715,42 +349,33 @@
                 <a href="#blog" class="header-nav-link">Our Insights</a>
                 <a href="#team" class="header-nav-link">Our Team</a>
             </nav>
-
             <a href="#footer" class="header-cta">Let's Chat</a>
-
             <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
-                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16" />
+                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
         </div>
-        <div id="mobile-menu" class="mobile-menu hidden">
-            <a href="#impact">Impact</a>
-            <a href="#map">Map</a>
-            <a href="#chart">Data</a>
-            <a href="#blog">Our Insights</a>
-            <a href="#team">Our Team</a>
-            <a href="#footer">Let's Chat</a>
-        </div>
+        <div id="mobile-menu" class="mobile-menu hidden"></div>
     </header>
 
     <main>
         <section id="hero" class="hero-section">
             <div class="aqi-widget" id="aqi-widget">
                 <div class="aqi-title">AQI Near You</div>
-                <div class="aqi-value" style="align-content: center; text-align: center;">100</div>
-                </div>
-            <div class="hero-slide-container">
-                <div id="slide-1" class="hero-slide active" style="background-image: url('pic1.png');"></div>
-                <div id="slide-2" class="hero-slide" style="background-image: url('pic2.png');"></div>
-                <div id="slide-3" class="hero-slide" style="background-image: url('pic3.jpeg');"></div>
-                <div id="slide-4" class="hero-slide" style="background-image: url('pic4.jpg');"></div>
+                <div class="aqi-value" id="aqi-value">...</div>
+                <div class="aqi-category" id="aqi-category">Fetching</div>
+                <div class="aqi-pollutant" id="aqi-pollutant"></div>
+                <div class="aqi-city" id="aqi-city">Determining location...</div>
             </div>
 
+            <div class="hero-slide-container">
+                <div id="slide-1" class="hero-slide active" style="background-image: url('utils/pic1.png');"></div>
+                <div id="slide-2" class="hero-slide" style="background-image: url('utils/pic2.png');"></div>
+                <div id="slide-3" class="hero-slide" style="background-image: url('utils/pic3.jpeg');"></div>
+                <div id="slide-4" class="hero-slide" style="background-image: url('utils/pic4.jpg');"></div>
+            </div>
             <div class="hero-overlay"></div>
-
             <div id="hero-text-content" class="hero-content">
                 <div class="hero-text-container">
                     <h1>Clearing the Air for a Healthier Pakistan</h1>
@@ -798,20 +423,20 @@
             <p style="margin-bottom: 30px;">We collaborate with leading organizations to maximize our impact and drive systemic change.</p>
             <div class="partners-slider">
                 <div class="slide-track">
-                    <div class="slide"><img class="partner-logo" src="iqair.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="breathepak.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="lums.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="lei.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="uol.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="wwf.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="umt.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="iqair.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="breathepak.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="lums.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="lei.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="uol.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="wwf.png" alt="Partner Logo" /></div>
-                    <div class="slide"><img class="partner-logo" src="umt.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/iqair.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/breathepak.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/lums.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/lei.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/uol.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/wwf.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/umt.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/iqair.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/breathepak.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/lums.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/lei.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/uol.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/wwf.png" alt="Partner Logo" /></div>
+                    <div class="slide"><img class="partner-logo" src="utils/umt.png" alt="Partner Logo" /></div>
                 </div>
             </div>
         </section>
@@ -820,14 +445,14 @@
             <div class="container">
                 <div class="map-grid">
                     <div class="map-legend animate-on-scroll">
-                        <h2 class="section-headline" style="text-align: left; color: white;">Live Air Quality Across Pakistan</h2>
-                        <p>Our network provides a real-time snapshot of the air quality in major urban centers. Explore the map to see the current annual average PM₂.₅ levels.</p>
+                        <h2 class="section-headline" style="text-align: left; color: white;">Annual PM2.5 Concentration in 2024</h2>
+                        <p>Our network provides a real-time snapshot of the air quality in major urban centers. Explore the map to see the current annual average PM2.5 levels.</p>
                         <div class="map-legend-items">
-                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: #22c55e;"></span> Good</div>
-                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: #facc15;"></span> Moderate</div>
-                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: #f97316;"></span> Unhealthy (SG)</div>
-                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: #ef4444;"></span> Unhealthy</div>
-                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: #a855f7;"></span> Very Unhealthy</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-good);"></span> Good</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-moderate);"></span> Moderate</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-usg);"></span> Unhealthy (SG)</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-unhealthy);"></span> Unhealthy</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-very-unhealthy);"></span> Very Unhealthy</div>
                         </div>
                     </div>
                     <div class="map-container animate-on-scroll delay-1">
@@ -842,14 +467,11 @@
         <section id="chart" class="dataviz-section">
             <div class="chart-wrapper animate-on-scroll">
                 <div class="chart-grid">
-                    <!-- LEFT: TEXT SECTION -->
                     <div class="chart-header">
                         <h2 class="section-headline" style="text-align: left; color: var(--color-text-dark); margin: 0 0 10px 0;">A Decade of Data</h2>
                         <p>Our network has chronicled the air quality crisis across Pakistan. While yearly fluctuations exist, the trend is clear: annual pollution levels remain dangerously high, consistently exceeding WHO safe limits.</p>
                         <div id="chart-legend" class="chart-legend"></div>
                     </div>
-
-                    <!-- RIGHT: CHART SECTION -->
                     <div class="chart-container">
                         <div class="chart-svg-container">
                             <svg id="timeline-chart" class="chart-svg" viewBox="0 0 800 400" width="800" height="400"></svg>
@@ -863,26 +485,26 @@
             <h2 class="section-headline animate-on-scroll">Our Latest Insights</h2>
             <div class="blog-grid">
                 <a href="#" class="blog-card animate-on-scroll">
-                    <div class="blog-card-image-wrapper"><img src="airpurifier.jpg" alt="Air purifier" class="blog-card-image"></div>
-                    <div class="blog-card-content" style="text-decoration: none;">
+                    <div class="blog-card-image-wrapper"><img src="utils/airpurifier.jpg" alt="Air purifier" class="blog-card-image"></div>
+                    <div class="blog-card-content">
                         <h3>How to Choose the Right Air Purifier</h3>
-                        <p style="text-decoration: none;">A practical guide to understanding HEPA filters, CADR ratings, and finding the perfect device for your space.</p>
+                        <p>A practical guide to understanding HEPA filters, CADR ratings, and finding the perfect device for your space.</p>
                         <span class="blog-card-link">Read More &rarr;</span>
                     </div>
                 </a>
                 <a href="#" class="blog-card animate-on-scroll delay-1">
-                    <div class="blog-card-image-wrapper"><img src="traffic.jpg" alt="Traffic in a city" class="blog-card-image"></div>
-                    <div class="blog-card-content" style="text-decoration: none;">
+                    <div class="blog-card-image-wrapper"><img src="utils/traffic.jpg" alt="Traffic in a city" class="blog-card-image"></div>
+                    <div class="blog-card-content">
                         <h3>Policy on Vehicular Emissions</h3>
                         <p>Our latest recommendations for the government to tackle traffic pollution, one of the largest sources of smog.</p>
                         <span class="blog-card-link">Read More &rarr;</span>
                     </div>
                 </a>
                 <a href="#" class="blog-card animate-on-scroll delay-2">
-                    <div class="blog-card-image-wrapper"><img src="community.jpg" alt="Community meeting" class="blog-card-image"></div>
-                    <div class="blog-card-content" style="text-decoration: none;">
+                    <div class="blog-card-image-wrapper"><img src="utils/community.jpg" alt="Community meeting" class="blog-card-image"></div>
+                    <div class="blog-card-content">
                         <h3>Community Spotlight: Citizens Fighting Back</h3>
-                        <p style="text-decoration: none;">How a neighborhood used our data to advocate for green spaces and reduce local industrial pollution.</p>
+                        <p>How a neighborhood used our data to advocate for green spaces and reduce local industrial pollution.</p>
                         <span class="blog-card-link">Read More &rarr;</span>
                     </div>
                 </a>
@@ -892,15 +514,15 @@
         <section id="team" class="team-section container">
             <h2 class="section-headline animate-on-scroll">The People Behind the Data</h2>
             <div class="team-grid">
-                <div class="team-card animate-on-scroll"><img src="Abid.jpeg" alt="Abid" class="team-card-image"><h4>Abid Omar</h4><p>Founder & Director</p></div>
-                <div class="team-card animate-on-scroll delay-1"><img src="Dawar.jpg" alt="Bilal Ahmed" class="team-card-image"><h4>Dawar Butt</h4><p>Cheif Executive Officer</p></div>
-                <div class="team-card animate-on-scroll delay-2"><img src="Mahad.jpeg" alt="Fatima Raza" class="team-card-image"><h4>Mahad Naveed</h4><p>Lead Data Scientist</p></div>
-                <div class="team-card animate-on-scroll delay-3"><img src="https://placehold.co/200x200/e2e8f0/334155?text=SM" alt="Saad Malik" class="team-card-image"><h4>Mariam Shah</h4><p>Communications Lead</p></div>
+                <div class="team-card animate-on-scroll"><img src="utils/Abid.jpeg" alt="Abid" class="team-card-image"><h4>Abid Omar</h4><p>Founder & Director</p></div>
+                <div class="team-card animate-on-scroll delay-1"><img src="utils/Dawar.jpg" alt="Dawar Butt" class="team-card-image"><h4>Dawar Butt</h4><p>Chief Executive Officer</p></div>
+                <div class="team-card animate-on-scroll delay-2"><img src="utils/Mahad.jpeg" alt="Mahad Naveed" class="team-card-image"><h4>Mahad Naveed</h4><p>Lead Data Scientist</p></div>
+                <div class="team-card animate-on-scroll delay-3"><img src="https://placehold.co/200x200/e2e8f0/334155?text=MS" alt="Mariam Shah" class="team-card-image"><h4>Mariam Shah</h4><p>Communications Lead</p></div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer">
+    <footer id="footer" class="site-footer">
         <div class="container" style="padding-top: 5rem; padding-bottom: 4rem;">
             <div class="footer-grid">
                 <div class="footer-col">
@@ -953,8 +575,23 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const desktopNav = document.querySelector('.header-nav');
         
-        mobileMenu.innerHTML = desktopNav.innerHTML; // Clone nav for mobile
-        
+        // Dynamically create mobile menu from desktop nav
+        mobileMenu.innerHTML = '';
+        const navLinks = desktopNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            const mobileLink = document.createElement('a');
+            mobileLink.href = link.href;
+            mobileLink.textContent = link.textContent;
+            mobileMenu.appendChild(mobileLink);
+        });
+        const ctaButton = document.querySelector('.header-cta');
+        if (ctaButton) {
+             const mobileCta = document.createElement('a');
+             mobileCta.href = ctaButton.href;
+             mobileCta.textContent = ctaButton.textContent;
+             mobileMenu.appendChild(mobileCta);
+        }
+
         window.addEventListener('scroll', () => {
             header.classList.toggle('header-scrolled', window.scrollY > 50);
         });
@@ -963,186 +600,150 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // --- Hero Slider Logic ---
-        const slides = [
-            {
-            id: 'slide-1',
-            title: 'Clearing the Air for a Healthier Pakistan',
-            text: "Air pollution is the nation's leading environmental threat. We are dedicated to providing the data and tools needed to drive change.",
-            button: 'Learn About The Crisis &rarr;',
-            },
-            {
-            id: 'slide-2',
-            title: 'Data-Driven Action, Real-Time Impact',
-            text: 'Our network of over 100 sensors across Pakistan provides transparent, real-time air quality data to citizens, researchers, and policymakers.',
-            button: 'View Our Live Map &rarr;',
-            },
-            {
-            id: 'slide-3',
-            title: 'Protecting Our Future Generations',
-            text: 'Every citizen deserves the right to breathe clean air. Our initiatives focus on public health awareness and safeguarding vulnerable communities.',
-            button: 'See Our Impact &rarr;',
-            },
-            {
-            id: 'slide-4',
-            title: 'A Breath of Fresh Air is Possible',
-            text: 'Through collaborative effort, scientific research, and public engagement, we can build a future with clear skies for Pakistan.',
-            button: 'Get Involved &rarr;',
-            },
-        ];
+        // --- AQI Widget Logic (Updated) ---
+        const aqiValueEl = document.getElementById('aqi-value');
+        const aqiCategoryEl = document.getElementById('aqi-category');
+        const aqiPollutantEl = document.getElementById('aqi-pollutant');
+        const aqiCityEl = document.getElementById('aqi-city');
+        const apiKey = '4addec78-cd61-4d94-92ac-3c09695e3cf2'
 
+        function getAqiInfo(aqi) {
+            if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
+            if (aqi <= 100) return { category: 'Moderate', className: 'aqi-moderate' };
+            if (aqi <= 150) return { category: 'Unhealthy (SG)', className: 'aqi-usg' };
+            if (aqi <= 200) return { category: 'Unhealthy', className: 'aqi-unhealthy' };
+            if (aqi <= 300) return { category: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
+            return { category: 'Hazardous', className: 'aqi-hazardous' };
+        }
+
+        function getAqiInfo(aqi) {
+            if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
+            if (aqi <= 100) return { category: 'Moderate', className: 'aqi-moderate' };
+            if (aqi <= 150) return { category: 'Unhealthy (SG)', className: 'aqi-usg' };
+            if (aqi <= 200) return { category: 'Unhealthy', className: 'aqi-unhealthy' };
+            if (aqi <= 300) return { category: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
+            return { category: 'Hazardous', className: 'aqi-hazardous' };
+        }
+
+        function fetchAqi(latitude, longitude) {
+            const apiUrl = `/api/aqi?lat=${latitude}&lon=${longitude}`;
+            
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        const pollution = data.data.current.pollution;
+                        const aqi = pollution.aqius;
+                        const pm25 = pollution.p2?.conc ?? 'N/A';
+                        const city = data.data.city;
+                        const state = data.data.state;
+
+                        const aqiInfo = getAqiInfo(aqi);
+
+                        aqiValueEl.textContent = aqi;
+                        aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
+                        aqiCategoryEl.textContent = aqiInfo.category;
+                        aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
+                        aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`;
+                        aqiCityEl.textContent = `${city}, ${state}`;
+                    } else {
+                        throw new Error('API returned non-success status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching AQI data:', error);
+                    aqiValueEl.textContent = '--';
+                    aqiCategoryEl.textContent = 'Unavailable';
+                    aqiCityEl.textContent = 'Could not load data.';
+                    aqiPollutantEl.textContent = '';
+                });
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    fetchAqi(position.coords.latitude, position.coords.longitude);
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    aqiValueEl.textContent = '--';
+                    aqiCityEl.textContent = 'Geolocation denied.';
+                }
+            );
+        } else {
+            aqiValueEl.textContent = '--';
+            aqiCityEl.textContent = 'Geolocation not supported.';
+        }
+
+        // --- Hero Slider Logic ---
+        const slides = [ { id: 'slide-1', title: 'Clearing the Air for a Healthier Pakistan', text: "Air pollution is the nation's leading environmental threat. We are dedicated to providing the data and tools needed to drive change.", button: 'Learn About The Crisis &rarr;', }, { id: 'slide-2', title: 'Data-Driven Action, Real-Time Impact', text: 'Our network of over 100 sensors across Pakistan provides transparent, real-time air quality data to citizens, researchers, and policymakers.', button: 'View Our Live Map &rarr;', }, { id: 'slide-3', title: 'Protecting Our Future Generations', text: 'Every citizen deserves the right to breathe clean air. Our initiatives focus on public health awareness and safeguarding vulnerable communities.', button: 'See Our Impact &rarr;', }, { id: 'slide-4', title: 'A Breath of Fresh Air is Possible', text: 'Through collaborative effort, scientific research, and public engagement, we can build a future with clear skies for Pakistan.', button: 'Get Involved &rarr;', }, ];
         let currentSlide = 0;
         const heroTextContent = document.getElementById('hero-text-content');
-
-        const initialSlide = document.getElementById(slides[currentSlide].id);
-        if (initialSlide) {
-        setTimeout(() => {
-            initialSlide.classList.remove('is-initial');
-        }, 100); // A small delay to ensure the initial zoom animation starts
-        }
-
         function changeSlide() {
-            // Hide previous slide
             document.getElementById(slides[currentSlide].id).classList.remove('active');
-
-            // Update index
             currentSlide = (currentSlide + 1) % slides.length;
-
-            // Show new slide
             document.getElementById(slides[currentSlide].id).classList.add('active');
-
-            // Animate text
             heroTextContent.style.opacity = '0';
             setTimeout(() => {
-            const slideData = slides[currentSlide];
-            heroTextContent.innerHTML = `
-                <div class="hero-text-container">
-                    <h1>${slideData.title}</h1>
-                    <p>${slideData.text}</p>
-                    <a href="#map" class="cta-button">${slideData.button}</a>
-                </div>
-            `;
-            heroTextContent.style.opacity = '1';
-            heroTextContent.style.transition = 'opacity 1s ease-in-out';
+                const slideData = slides[currentSlide];
+                heroTextContent.innerHTML = `<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>`;
+                heroTextContent.style.opacity = '1';
+                heroTextContent.style.transition = 'opacity 1s ease-in-out';
             }, 800);
         }
-
         setInterval(changeSlide, 6000);
 
         // --- General Animation Observer ---
         const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('is-visible');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.animate-on-scroll').forEach(el => animationObserver.observe(el));
         
         // --- Data for Map & Chart ---
-        const chartData = {
-            Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58},
-            Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22},
-            Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78},
-            Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41}
-        };
-
+        const chartData = { Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58}, 
+                            Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22}, 
+                            Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78}, 
+                            Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41} };
         const cityColors = { Lahore: 'var(--color-lahore)', Karachi: 'var(--color-karachi)', Peshawar: 'var(--color-peshawar)', 'Islamabad': 'var(--color-islamabad)' };
 
-        // --- SVG Chart Logic (Corrected and complete) ---
+        // --- SVG Chart Logic ---
         function drawChart() {
-            const svg = d3.select("#timeline-chart");
-            const legend = d3.select("#chart-legend");
-            const margin = { top: 60, right: 20, bottom: 60, left: 50 };
-            const width = +svg.attr("width") - margin.left - margin.right;
-            const height = +svg.attr("height") - margin.top - margin.bottom;
-
+            const svg = d3.select("#timeline-chart"), margin = {top: 60, right: 20, bottom: 60, left: 50}, width = +svg.attr("width") - margin.left - margin.right, height = +svg.attr("height") - margin.top - margin.bottom;
             const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-            const years = Object.keys(Object.values(chartData)[0]);
-            const cities = Object.keys(chartData);
-
-            const x = d3.scalePoint()
-                .range([0, width])
-                .padding(0.5)
-                .domain(years);
-
-            const y = d3.scaleLinear()
-                .range([height, 0])
-                .domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d)))]);
-
-            const line = d3.line()
-                .x(d => x(d.year))
-                .y(d => y(d.value))
-                .defined(d => d.value !== undefined);
-
-            // X-axis
-            g.append("g")
-                .attr("transform", `translate(0,${height})`)
-                .call(d3.axisBottom(x).tickSize(0).tickPadding(10))
-                .select(".domain").remove();
-
-            // Y-axis with WHO guideline line
-            const yAxisGroup = g.append("g")
-                .call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d))
-                .attr("class", "y-axis");
-
+            const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
+            const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
+            const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1.1]);
+            const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).defined(d => d.value !== undefined);
+            g.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10));
+            const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
             yAxisGroup.select(".domain").remove();
-            yAxisGroup.selectAll(".tick line")
-                .attr("stroke", "var(--color-border)")
-                .filter(d => d === 5).attr("stroke-dasharray", "4 4");
-
-            svg.append("text")
-                .attr("transform", `rotate(-90)`)
-                .attr("y", 0) // Distance from the left edge
-                .attr("x", -height / 2 - margin.top/2) // Centered vertically
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .style("fill", "grey")
-                .style("font-size", "10px")
-                .style("font-family", "var(--font-main)")
-                .text("PM2.5 conc. (µg/m³)");
-
+            yAxisGroup.selectAll(".tick line").attr("stroke", "var(--color-border)").filter(d => d === 5).attr("stroke-dasharray", "4 4");
+            g.append("text").attr("transform", `rotate(-90)`).attr("y", 0).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
             const chartArea = g.append("g").attr("class", "chart-area");
-
-            // Draw lines and legend
-            cities.forEach(city => {
+            cities.forEach((city) => {
                 const data = years.map(year => ({ year: year, value: chartData[city][year] }));
-
-                // Legend item
-                legend.append("div")
-                    .attr("class", "legend-item")
-                    .attr("data-city", city)
-                    .html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
-
-                // Draw the line (STATIC, no animation)
-                chartArea.append("path")
-                    .datum(data)
-                    .attr("class", "data-line")
-                    .attr("id", `line-${city}`)
-                    .attr("d", line)
-                    .style("stroke", cityColors[city]);
+                d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
+                const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", `line-${city}`).attr("d", line).style("stroke", cityColors[city]);
+                const pathLength = path.node().getTotalLength();
+                path.attr("stroke-dasharray", pathLength + " " + pathLength).attr("stroke-dashoffset", pathLength);
+                chartArea.selectAll(`.point-${city}`).data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", `data-point point-${city}`).attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text(`${d.value.toFixed(1)}`); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
             });
-
-            // Legend toggle
-            d3.selectAll(".legend-item").on("click", function () {
-                const city = d3.select(this).attr("data-city");
-                const isActive = d3.select(this).classed("is-dimmed");
-                d3.select(this).classed("is-dimmed", !isActive);
-                d3.select(`#line-${city}`).classed("is-dimmed", !isActive);
-            });
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { d3.selectAll(".data-line").transition().duration(2500).ease(d3.easeCubic).delay((d, i) => i * 150).attr("stroke-dashoffset", 0); chartObserver.unobserve(entry.target); } });
+            }, { threshold: 0.5 });
+            chartObserver.observe(document.getElementById('timeline-chart'));
+            d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select(`#line-${city}`).classed("is-dimmed", !isActive); });
         }
-
         drawChart();
 
-        // --- PNG Map Logic ---
+        // --- PNG Map Logic (Updated Tooltip) ---
         const mapLayer = document.getElementById('map-interactive-layer');
         const mapTooltip = document.getElementById('map-tooltip');
         if (mapLayer) {
-            const mapCityData = {
-                'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Karachi'] },
-                'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] },
-                'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Lahore'] },
-                'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] },
-            };
+            const mapCityData = { 'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Islamabad'] }, 'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] }, 'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Peshawar'] }, 'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] }, };
             Object.keys(mapCityData).forEach(city => {
                 const data = mapCityData[city];
                 const marker = document.createElement('div');
@@ -1153,17 +754,13 @@
                 marker.style.setProperty('--marker-color', data.color);
                 mapLayer.appendChild(marker);
             });
-
             document.querySelectorAll('.map-marker').forEach(marker => {
                 marker.addEventListener('mouseenter', e => {
                     const city = e.currentTarget.dataset.city;
                     const data = mapCityData[city];
                     let level = 'Good';
-                    if (data.aqi > 5) level = 'Moderate'; 
-                    if (data.aqi > 35) level = 'Unhealthy for Sensitive Groups'; 
-                    if (data.aqi > 55) level = 'Unhealthy';
-
-                    mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span> µg/m³</p><small>${level}</small>`;
+                    if (data.aqi > 5) level = 'Moderate'; if (data.aqi > 35) level = 'Unhealthy for Sensitive Groups'; if (data.aqi > 55) level = 'Unhealthy';
+                    mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>`;
                     mapTooltip.style.left = `${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px`;
                     mapTooltip.style.top = `${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px`;
                     mapTooltip.classList.add('is-visible');
@@ -1175,4 +772,3 @@
     </script>
 </body>
 </html>
-```
