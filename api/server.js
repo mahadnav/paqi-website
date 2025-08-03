@@ -1,44 +1,28 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config(); // For local development
 
-// Load environment variables from .env file
-dotenv.config();
-
-const app = express();
-const PORT = 3000;
-
-// Enable CORS for all routes
-app.use(cors());
-
-// Serve static files (HTML, CSS, images) from the current directory
-app.use(express.static('public'));
-
-// Define the proxy endpoint
-app.get('/api/aqi', async (req, res) => {
+export default async function handler(request, response) {
   try {
-    const { lat, lon } = req.query; // Get lat/lon from frontend request
+    const { lat, lon } = request.query;
 
     if (!lat || !lon) {
-      return res.status(400).json({ message: 'Latitude and longitude are required' });
+      return response.status(400).json({ message: 'Latitude and longitude are required' });
     }
 
     const apiKey = process.env.IQAIR_API_KEY;
+    if (!apiKey) {
+      throw new Error('API key is not configured on the server.');
+    }
+
     const apiUrl = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${lon}&key=${apiKey}`;
 
-    // Make the request to the real API
-    const response = await axios.get(apiUrl);
-
-    // Send the response from the API back to the frontend
-    res.json(response.data);
+    const apiResponse = await axios.get(apiUrl);
+    
+    // Send the successful response from IQAir back to the frontend
+    response.status(200).json(apiResponse.data);
 
   } catch (error) {
-    console.error('Proxy error:', error.message);
-    res.status(500).json({ message: 'Failed to fetch AQI data' });
+    console.error('API Route Error:', error.message);
+    response.status(500).json({ message: 'Failed to fetch AQI data' });
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`✅ Proxy server running on http://localhost:${PORT}`);
-});
+}
