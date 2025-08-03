@@ -149,23 +149,73 @@
             padding: 0.5rem 1.25rem; border-radius: 100px; text-decoration: none; font-weight: 700; transition: all 0.3s; } }
         .header-cta:hover { background-color: var(--color-primary-blue); transform: scale(1.1); border: none;}
         
-        .mobile-menu-button { 
-            display: block; background: none; border: none; cursor: pointer; padding: 0;
-            color: var(--color-text-light); transition: color 0.3s;
+        /* Mobile Menu Button – default (mobile only) */
+        .mobile-menu-button {
+            display: block;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            color: var(--color-text-light);
+            transition: color 0.3s;
         }
-        .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); }
-        
-        .mobile-menu-icon { width: 1.75rem; height: 1.75rem; }
-        @media (min-width: 768px) { header.scrolled .mobile-menu-icon { display: block; width: 1rem; height: auto;} }
-        @media (min-width: 768px) { .mobile-menu-button { display: none; } }
-            .mobile-menu { 
-                background-color: white; padding: 1rem; border-radius: 8px; 
-                box-shadow: var(--shadow-lifted); margin-top: 1rem;
-                width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto;
+
+        /* Change icon color when header is scrolled */
+        .header-scrolled .mobile-menu-button {
+            color: var(--color-primary-blue);
+        }
+
+        /* Icon size */
+        .mobile-menu-icon {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+
+        /* Hide mobile menu button on larger screens */
+        @media (min-width: 768px) {
+            .mobile-menu-button {
+                display: none;
             }
-        .mobile-menu.hidden { display: none; }
-        .mobile-menu a { display: block; padding: 0.75rem 1rem; color: var(--color-text-dark); text-decoration: none; font-weight: 600; border-radius: 6px; }
-        .mobile-menu a:hover { background-color: var(--color-background-light); }
+
+            /* You had a redundant selector here */
+            .mobile-menu-icon {
+                width: 1rem;
+                height: auto;
+            }
+        }
+
+        /* Mobile menu container */
+        .mobile-menu {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lifted);
+            margin-top: 1rem;
+            width: 90%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hidden state for toggling */
+        .mobile-menu.hidden {
+            display: none;
+        }
+
+        /* Mobile menu links */
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--color-text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        /* Hover effect on mobile menu links */
+        .mobile-menu a:hover {
+            background-color: var(--color-background-light);
+        }
 
 
         /* --- Hero Section --- */
