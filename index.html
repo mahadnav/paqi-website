@@ -605,16 +605,6 @@
         const aqiCategoryEl = document.getElementById('aqi-category');
         const aqiPollutantEl = document.getElementById('aqi-pollutant');
         const aqiCityEl = document.getElementById('aqi-city');
-        const apiKey = '4addec78-cd61-4d94-92ac-3c09695e3cf2'
-
-        function getAqiInfo(aqi) {
-            if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
-            if (aqi <= 100) return { category: 'Moderate', className: 'aqi-moderate' };
-            if (aqi <= 150) return { category: 'Unhealthy (SG)', className: 'aqi-usg' };
-            if (aqi <= 200) return { category: 'Unhealthy', className: 'aqi-unhealthy' };
-            if (aqi <= 300) return { category: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
-            return { category: 'Hazardous', className: 'aqi-hazardous' };
-        }
 
         function getAqiInfo(aqi) {
             if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
@@ -626,11 +616,11 @@
         }
 
         function fetchAqi(latitude, longitude) {
-            const apiUrl = `/api/aqi?lat=${latitude}&lon=${longitude}`;
+            const apiUrl = '/api/aqi?lat=${latitude}&lon=${longitude}';
             
             fetch(apiUrl)
                 .then(response => {
-                    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                    if (!response.ok) throw new Error('API Error: ${response.status}');
                     return response.json();
                 })
                 .then(data => {
@@ -644,11 +634,11 @@
                         const aqiInfo = getAqiInfo(aqi);
 
                         aqiValueEl.textContent = aqi;
-                        aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
+                        aqiValueEl.className = 'aqi-value ${aqiInfo.className}';
                         aqiCategoryEl.textContent = aqiInfo.category;
-                        aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
-                        aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`;
-                        aqiCityEl.textContent = `${city}, ${state}`;
+                        aqiCategoryEl.className = 'aqi-category ${aqiInfo.className}';
+                        aqiPollutantEl.innerHTML = 'PM2.5: <strong>${pm25}</strong> µg/m³';
+                        aqiCityEl.textContent = '${city}, ${state}';
                     } else {
                         throw new Error('API returned non-success status');
                     }
@@ -669,12 +659,12 @@
                 },
                 (error) => {
                     console.error('Geolocation error:', error);
-                    aqiValueEl.textContent = '--';
+                    aqiValueEl.textContent = '-';
                     aqiCityEl.textContent = 'Geolocation denied.';
                 }
             );
         } else {
-            aqiValueEl.textContent = '--';
+            aqiValueEl.textContent = '-';
             aqiCityEl.textContent = 'Geolocation not supported.';
         }
 
@@ -689,7 +679,7 @@
             heroTextContent.style.opacity = '0';
             setTimeout(() => {
                 const slideData = slides[currentSlide];
-                heroTextContent.innerHTML = `<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>`;
+                heroTextContent.innerHTML = '<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>';
                 heroTextContent.style.opacity = '1';
                 heroTextContent.style.transition = 'opacity 1s ease-in-out';
             }, 800);
@@ -712,30 +702,30 @@
         // --- SVG Chart Logic ---
         function drawChart() {
             const svg = d3.select("#timeline-chart"), margin = {top: 60, right: 20, bottom: 60, left: 50}, width = +svg.attr("width") - margin.left - margin.right, height = +svg.attr("height") - margin.top - margin.bottom;
-            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+            const g = svg.append("g").attr("transform", 'translate(${margin.left},${margin.top})');
             const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
             const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
             const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1.1]);
             const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).defined(d => d.value !== undefined);
-            g.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10));
+            g.append("g").attr("class", "x-axis").attr("transform", 'translate(0,${height})').call(d3.axisBottom(x).tickSize(0).tickPadding(10));
             const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
             yAxisGroup.select(".domain").remove();
             yAxisGroup.selectAll(".tick line").attr("stroke", "var(--color-border)").filter(d => d === 5).attr("stroke-dasharray", "4 4");
-            g.append("text").attr("transform", `rotate(-90)`).attr("y", 0).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
+            g.append("text").attr("transform", 'rotate(-90)').attr("y", 0).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
             const chartArea = g.append("g").attr("class", "chart-area");
             cities.forEach((city) => {
                 const data = years.map(year => ({ year: year, value: chartData[city][year] }));
-                d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
-                const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", `line-${city}`).attr("d", line).style("stroke", cityColors[city]);
+                d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html('<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}');
+                const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", 'line-${city}').attr("d", line).style("stroke", cityColors[city]);
                 const pathLength = path.node().getTotalLength();
                 path.attr("stroke-dasharray", pathLength + " " + pathLength).attr("stroke-dashoffset", pathLength);
-                chartArea.selectAll(`.point-${city}`).data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", `data-point point-${city}`).attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text(`${d.value.toFixed(1)}`); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
+                chartArea.selectAll('.point-${city}').data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", 'data-point point-${city}').attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text('${d.value.toFixed(1)}'); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
             });
             const chartObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { d3.selectAll(".data-line").transition().duration(2500).ease(d3.easeCubic).delay((d, i) => i * 150).attr("stroke-dashoffset", 0); chartObserver.unobserve(entry.target); } });
             }, { threshold: 0.5 });
             chartObserver.observe(document.getElementById('timeline-chart'));
-            d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select(`#line-${city}`).classed("is-dimmed", !isActive); });
+            d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select('#line-${city}').classed("is-dimmed", !isActive); });
         }
         drawChart();
 
@@ -760,9 +750,9 @@
                     const data = mapCityData[city];
                     let level = 'Good';
                     if (data.aqi > 5) level = 'Moderate'; if (data.aqi > 35) level = 'Unhealthy for Sensitive Groups'; if (data.aqi > 55) level = 'Unhealthy';
-                    mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>`;
-                    mapTooltip.style.left = `${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px`;
-                    mapTooltip.style.top = `${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px`;
+                    mapTooltip.innerHTML = '<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>';
+                    mapTooltip.style.left = '${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px';
+                    mapTooltip.style.top = '${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px';
                     mapTooltip.classList.add('is-visible');
                 });
                 marker.addEventListener('mouseleave', () => mapTooltip.classList.remove('is-visible'));
