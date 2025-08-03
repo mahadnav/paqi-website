@@ -25,7 +25,7 @@ app.get('/api/aqi', async (req, res) => {
     }
 
     const apiKey = process.env.IQAIR_API_KEY;
-    const apiUrl = `https://api.airvisual.com/v2/nearest_station?lat=${lat}&lon=${lon}&key=${apiKey}`;
+    const apiUrl = `https://api.airvisual.com/v2/nearest_city?lat=${lat}&lon=${lon}&key=${apiKey}`;
 
     // Make the request to the real API
     const response = await axios.get(apiUrl);
