@@ -243,13 +243,13 @@
             .aqi-widget {
                 top: 8.5rem;
                 right: 11rem;
-                max-width: 400px;
+                min-width: 300px;
                 transform: scale(0.8);
             }
 
             .aqi-widget:hover {
                 box-shadow: var(--shadow-lifted);
-                transform: translateY(-2px) scale(0.85);
+                transform: translateY(-2px) scale(0.85); /* MODIFIED: Refined hover effect */
             }
         }
 
@@ -258,7 +258,7 @@
             font-size: 1.75rem;
             font-weight: 700;
             line-height: 1;
-            margin: 0;
+            margin: 0; /* RESET: Margin handled by flexbox */
         }
         .aqi-category {
             font-size: 1rem;
@@ -433,15 +433,10 @@
             </nav>
             <a href="#footer" class="header-cta">Let's Chat</a>
             <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
-                <svg class="mobile-menu-icon" viewBox="0 0 24 24">...</svg>
+                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
             </button>
-            
-            <div class="aqi-widget" id="aqi-widget">
-                <div class="aqi-title">AQI</div>
-                <div class="aqi-value" id="aqi-value">...</div>
-                <div class="aqi-category" id="aqi-category">Fetching</div>
-                <div class="aqi-city" id="aqi-city">Determining location...</div>
-            </div>
         </div>
         <div id="mobile-menu" class="mobile-menu hidden"></div>
     </header>
