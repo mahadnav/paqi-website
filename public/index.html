@@ -184,7 +184,21 @@
         .hero-nav-links a:hover { color: white; font-weight: 600; border-bottom-color: var(--color-primary-blue); width: 225px; transition: all 0.5s; }
         .hero-nav-grid { display: flex; gap: 1rem; }
         @media (min-width: 768px) { 
-            .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } 
+            .hero-nav-links { 
+                display: block; 
+                overflow: visible; 
+                white-space: normal; 
+                padding-left: 0; padding-right: 0; 
+            } 
+            .hero-nav-grid { 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 1rem; 
+                width: 100%; 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                display: flex; 
+                justify-content: space-between; 
+            } 
         }
 
 /* --- AQI Widget (Aligned with Header Container) --- */
@@ -208,6 +222,9 @@
             transform: scale(0.9); /* Slightly scale it down to match the design */
             transform-origin: top right; /* Scale from the corner it's anchored to */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            cursor: pointer; /* Add this to show it's clickable */
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         .aqi-widget:hover {
@@ -219,11 +236,11 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            transition: opacity 0.2s ease-out, transform 0.3s ease-out;
         }
 
-        /* --- Font Styles (you can keep your original sizes) --- */
-        .aqi-title { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
-        .aqi-value { font-size: 2rem; font-weight: 700; }
+        .aqi-title { font-size: 0.9rem; font-weight: 500; opacity: 0.8; transition: opacity 0.2s ease-out, transform 0.3s ease-out; }
+        .aqi-value { font-size: 2rem; font-weight: 700; transition: font-size 0.4s ease-in-out;}
         .aqi-category { font-size: 1rem; font-weight: 600; text-transform: uppercase; }
         .aqi-city { font-size: 0.9rem; opacity: 0.8; }
 
@@ -652,6 +669,14 @@
             const aqiCategoryEl = document.getElementById('aqi-category');
             /* const aqiPollutantEl = document.getElementById('aqi-pollutant'); */
             const aqiCityEl = document.getElementById('aqi-city');
+
+            const aqiWidget = document.getElementById('aqi-widget');
+            if (aqiWidget) {
+                aqiWidget.addEventListener('click', () => {
+                    aqiWidget.classList.toggle('is-collapsed');
+                });
+            }
+        });
 
             function getAqiInfo(aqi) {
                 if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
