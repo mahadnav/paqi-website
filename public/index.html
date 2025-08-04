@@ -427,7 +427,7 @@
                 <div class="aqi-title">AQI</div>
                 <div class="aqi-value" id="aqi-value">...</div>
                 <div class="aqi-category" id="aqi-category">Fetching</div>
-                <div class="aqi-pollutant" id="aqi-pollutant"></div>
+                <!-- <div class="aqi-pollutant" id="aqi-pollutant"></div> -->
                 <div class="aqi-city" id="aqi-city">Determining location...</div>
             </div>
 
@@ -699,7 +699,7 @@
                             aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
                             aqiCategoryEl.textContent = aqiInfo.category;
                             aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
-                            aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`;
+                            /* aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`; */
                             aqiCityEl.textContent = `${city}, ${state}`;
                         } else {
                             throw new Error('API returned non-success status');
