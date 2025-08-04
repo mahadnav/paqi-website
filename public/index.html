@@ -185,53 +185,88 @@
 /* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
             position: absolute;
-            background: transparent; /* Slightly lighter for better contrast */
-            backdrop-filter: blur(1px);
-            color: var(--color-background-dark);
-            padding-top: 0.5rem;
-            padding-right: 0.5rem;
+            background: rgba(40, 40, 40, 0.5); /* MODIFIED: Dark, semi-transparent background */
+            backdrop-filter: blur(8px);       /* MODIFIED: Increased blur for a sleeker look */
+            color: #FFFFFF;                   /* MODIFIED: Set text color to white for contrast */
+            padding: 0.75rem 1.5rem;          /* MODIFIED: Balanced padding for the horizontal layout */
             border-radius: 16px;
-            border: 0px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* MODIFIED: Subtle border for definition */
             box-shadow: var(--shadow-subtle);
             font-family: 'Montserrat', sans-serif;
             z-index: 20;
-            text-align: center;
-            justify-content: right;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+            /* --- ADDED: Key changes for the horizontal layout --- */
+            display: flex;
+            align-items: center;
+            gap: 1.25rem; /* Creates space between the number and the text block */
+        }
+
+        /* ADDED: A wrapper for the text elements to group them vertically */
+        .aqi-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Aligns text to the left */
+            text-align: left;
         }
 
         /* --- Mobile Styles --- */
         @media (max-width: 767px) {
             .aqi-widget {
+                /* This keeps the widget centered on mobile, as in your original code. */
                 top: 8rem;
                 left: 50%;
                 transform: translateX(-50%);
                 width: 90%;
-                max-width: 150px;
+                max-width: 280px; /* MODIFIED: A bit wider for the new layout */
             }
         }
 
         /* --- Desktop Styles --- */
         @media (min-width: 768px) {
             .aqi-widget {
-                top: 10rem;
-                right: 14rem;
-                width: 220px;
+                top: 2rem;      /* MODIFIED: Moved closer to the top */
+                right: 2rem;    /* MODIFIED: Moved closer to the right */
+                width: auto;    /* MODIFIED: Width now adapts to its content */
             }
 
             .aqi-widget:hover {
                 box-shadow: var(--shadow-lifted);
-                transform: scale(1.05); /* A more noticeable hover effect */
+                transform: translateY(-2px) scale(1.03); /* MODIFIED: Refined hover effect */
             }
         }
-        
 
-        .aqi-title { font-size: 0.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-primary-blue); }
-        .aqi-value { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; }
-        .aqi-category { font-size: 1.1rem; font-weight: 600; margin-top: 0.25rem; text-transform: uppercase; }
-        .aqi-pollutant { font-size: 0.8rem; opacity: 0.7; margin-top: 0.75rem; }
-        .aqi-city { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; font-family: var(--font-main); }
-        
+        /* --- Text Element Adjustments --- */
+        /* (Removed .aqi-title as it wasn't in the example) */
+
+        .aqi-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.75rem; /* MODIFIED: Larger for more impact */
+            font-weight: 700;
+            line-height: 1;
+            margin: 0; /* RESET: Margin handled by flexbox */
+        }
+        .aqi-category {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0; /* RESET: Margin handled by parent containers */
+        }
+        .aqi-pollutant {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin: 0; /* RESET */
+            margin-top: 0.25rem; /* Keeps a small space if used */
+        }
+        .aqi-city {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-family: var(--font-main);
+            margin: 0; /* RESET */
+            margin-top: 0.2rem; /* MODIFIED: Small space from category */
+        }
+
+        /* AQI Color classes are unchanged and should work as before */
         .aqi-good { color: var(--aqi-good); }
         .aqi-moderate { color: var(--aqi-moderate); }
         .aqi-usg { color: var(--aqi-usg); }
