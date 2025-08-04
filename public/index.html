@@ -217,7 +217,7 @@
         @media (max-width: 767px) {
             .aqi-widget {
                 display: flex;
-                position: fixed;
+                position: absolute;
                 top: 8.5rem;
                 right: 1rem;
                 transform-origin: top right;
@@ -347,11 +347,11 @@
         .dataviz-section { overflow: hidden; background: var(--color-background-light); align-content: center;}
         .chart-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
         @media (max-width: 767px) {
-        .chart-svg-container {
-            overflow-x: auto; /* Allows horizontal scrolling */
-            -webkit-overflow-scrolling: touch; /* Adds smooth, native-like scrolling on iOS */
-            padding-bottom: 15px; /* Adds some space so the scrollbar doesn't overlap content */
-        }
+            .chart-svg-container {
+                overflow-x: auto; /* Allows horizontal scrolling */
+                -webkit-overflow-scrolling: touch; /* Adds smooth, native-like scrolling on iOS */
+                padding-bottom: 15px; /* Adds some space so the scrollbar doesn't overlap content */
+            }
         }
         .chart-container {flex: 1 1 50%; padding: 2rem;}
         .chart-header { flex: 1 1 50%;padding-right: 2rem; }
