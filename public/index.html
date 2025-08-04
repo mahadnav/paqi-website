@@ -344,8 +344,12 @@
         .chart-wrapper {width: 90%; max-width: 1200px; margin: 100px auto 0;}
         .dataviz-section { overflow: hidden; background: var(--color-background-light); align-content: center;}
         .chart-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
-        @media (min-width: 768px) { 
-            .chart-svg { overflow: visible; width: max-content; height: 550px; } 
+        @media (max-width: 767px) {
+        .chart-svg-container {
+            overflow-x: auto; /* Allows horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* Adds smooth, native-like scrolling on iOS */
+            padding-bottom: 15px; /* Adds some space so the scrollbar doesn't overlap content */
+        }
         }
         .chart-container {flex: 1 1 50%; padding: 2rem;}
         .chart-header { flex: 1 1 50%;padding-right: 2rem; }
