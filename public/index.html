@@ -217,23 +217,22 @@
                 display: flex;
                 position: fixed;
                 top: 8rem;
-
-                /* --- KEY CHANGES --- */
-                /* 1. Set the 'right' property to position it from the right edge */
-                right: 1rem; /* Adjust this value for spacing from the edge */
-                
-                /* 2. Remove the width property that conflicts with right-alignment */
-                /* width: 90%; */ /* This was preventing proper alignment */
-
-                /* 3. Set a transform-origin so it scales from the right */
+                right: 1rem;
                 transform-origin: top right;
-                
-                /* 4. The 'align-items' property was invalid here and is not needed */
-                /* align-items: right; */
-
-                /* --- Existing Properties --- */
-                transform: scale(0.8); /* Adjusted scale for better visibility */
+                /* transform: scale(0.8); */
                 max-width: 300px;
+            }
+            .aqi-value {
+            font-size: 1rem;
+            }
+            .aqi-category {
+                font-size: 0.5rem;
+            }
+            .aqi-pollutant {
+                font-size: 0.4rem;
+            }
+            .aqi-city {
+                font-size: 0.45rem;
             }
         }
 
