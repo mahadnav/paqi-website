@@ -803,16 +803,13 @@
                 const svg = d3.select("#timeline-chart"),
                     margin = {top: 60, right: 20, bottom: 60, left: 50};
 
-                // Get the actual rendered dimensions of the SVG element
+                // This part is essential for responsiveness
                 const fullWidth = svg.node().getBoundingClientRect().width;
-                const fullHeight = svg.node().getBoundingClientRect().height;
+                let fullHeight = svg.node().getBoundingClientRect().height;
 
-                // Calculate drawing area based on the real dimensions
                 const width = fullWidth - margin.left - margin.right;
-                const height = fullHeight - margin.top - margin.bottom;
+                let height = fullHeight - margin.top - margin.bottom;
 
-                // If the SVG has no height (can happen on initial load), calculate it from the width
-                // to maintain a 2:1 aspect ratio from the viewBox (800x400)
                 if (height <= 0) {
                     height = (fullWidth / 2) - margin.top - margin.bottom;
                 }
