@@ -186,11 +186,12 @@
         .aqi-widget {
             position: absolute;
             background: transparent; /* Slightly lighter for better contrast */
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(1px);
             color: var(--color-background-dark);
-            padding: 1rem 1rem;
+            padding-top: 0.5rem;
+            padding-right: 0.5rem;
             border-radius: 16px;
-            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            border: 0px solid rgba(255, 255, 255, 0.5);
             box-shadow: var(--shadow-subtle);
             font-family: 'Montserrat', sans-serif;
             z-index: 20;
@@ -225,8 +226,8 @@
         }
         
 
-        .aqi-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-primary-blue); }
-        .aqi-value { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 700; line-height: 1; }
+        .aqi-title { font-size: 0.5rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-primary-blue); }
+        .aqi-value { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 700; line-height: 1; }
         .aqi-category { font-size: 1.1rem; font-weight: 600; margin-top: 0.25rem; text-transform: uppercase; }
         .aqi-pollutant { font-size: 0.8rem; opacity: 0.7; margin-top: 0.75rem; }
         .aqi-city { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; font-family: var(--font-main); }
