@@ -25,3 +25,7 @@ module.exports = async (request, response) => {
     response.status(500).json({ message: 'Failed to fetch AQI data' });
   }
 };
+
+app.listen(PORT, () => {
+  console.log(`✅ Proxy server running on http://localhost:${PORT}`);
+});
