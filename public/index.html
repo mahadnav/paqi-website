@@ -89,8 +89,9 @@
             box-shadow: var(--shadow-subtle);
             padding: 0.5rem 0;
         }
-
+        
         .header-container {
+            position: relative;
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
@@ -186,98 +187,57 @@
             .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } 
         }
 
-/* --- AQI Widget (Updated & Responsive) --- */
+/* --- AQI Widget (Aligned with Header Container) --- */
         .aqi-widget {
+            /* --- Positioning --- */
             position: absolute;
+            top: 100%; /* Position the top of the widget at the bottom of the header container */
+            right: 0;  /* Align the right edge of the widget with the right edge of the header container */
+            margin-top: 1.5rem; /* Add some space below the header's bottom border */
+            z-index: 20;
+
+            /* --- Visuals & Sizing --- */
             background: rgba(40, 40, 40, 0.2);
             backdrop-filter: blur(5px);
             color: #FFFFFF;
             padding: 0.75rem 1.5rem;
             border-radius: 16px;
-            border: none;
-            box-shadow: var(--shadow-subtle);
-            font-family: 'Montserrat', sans-serif;
-            z-index: 20;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             display: flex;
             align-items: center;
             gap: 1.2rem;
-            transform-origin: top right;
-            right: 5rem;
+            transform: scale(0.9); /* Slightly scale it down to match the design */
+            transform-origin: top right; /* Scale from the corner it's anchored to */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .aqi-widget:hover {
+            transform: translateY(-2px) scale(0.92);
+            box-shadow: var(--shadow-lifted);
         }
 
         .aqi-text-wrapper {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            text-align: right;
         }
+
+        /* --- Font Styles (you can keep your original sizes) --- */
+        .aqi-title { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
+        .aqi-value { font-size: 2rem; font-weight: 700; }
+        .aqi-category { font-size: 1rem; font-weight: 600; text-transform: uppercase; }
+        .aqi-city { font-size: 0.9rem; opacity: 0.8; }
+
 
         /* --- Mobile Styles --- */
+        /* On mobile, we detach it and let it float freely again */
         @media (max-width: 767px) {
             .aqi-widget {
-                display: flex;
-                position: fixed;
-                top: 8.5rem;
+                position: fixed; /* Detach from the header on mobile */
+                top: 8rem;
                 right: 1rem;
-                transform-origin: top right;
-                transform: scale(0.5);
-                max-width: 340px;
+                transform: scale(0.8); /* Adjust scale for mobile */
+                margin-top: 0; /* Reset the margin */
             }
-            .aqi-value {
-            font-size: 10px;
-            }
-            .aqi-category {
-                font-size: 8px;
-            }
-            .aqi-pollutant {
-                font-size: 0.4rem;
-            }
-            .aqi-city {
-                font-size: 7px;
-            }
-        }
-
-        /* --- Desktop Styles --- */
-        @media (min-width: 768px) {
-            .aqi-widget {
-                top: 8.5rem;
-                right: 11rem;
-                max-width: 400px;
-                transform: scale(0.8);
-            }
-
-            .aqi-widget:hover {
-                box-shadow: var(--shadow-lifted);
-                transform: translateY(-2px) scale(0.85);
-            }
-        }
-
-        .aqi-value {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            line-height: 1;
-            margin: 0;
-        }
-        .aqi-category {
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin: 0; /* RESET: Margin handled by parent containers */
-        }
-        .aqi-pollutant {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin: 0; /* RESET */
-            margin-top: 0.25rem; /* Keeps a small space if used */
-        }
-        .aqi-city {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            font-family: var(--font-main);
-            margin: 0; /* RESET */
-            margin-top: 0.2rem; /* MODIFIED: Small space from category */
         }
 
         /* AQI Color classes are unchanged and should work as before */
@@ -433,10 +393,15 @@
             </nav>
             <a href="#footer" class="header-cta">Let's Chat</a>
             <button id="mobile-menu-button" class="mobile-menu-button" aria-label="Toggle menu">
-                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+                <svg class="mobile-menu-icon" viewBox="0 0 24 24">...</svg>
             </button>
+            
+            <div class="aqi-widget" id="aqi-widget">
+                <div class="aqi-title">AQI</div>
+                <div class="aqi-value" id="aqi-value">...</div>
+                <div class="aqi-category" id="aqi-category">Fetching</div>
+                <div class="aqi-city" id="aqi-city">Determining location...</div>
+            </div>
         </div>
         <div id="mobile-menu" class="mobile-menu hidden"></div>
     </header>
