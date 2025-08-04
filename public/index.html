@@ -244,6 +244,32 @@
         .aqi-category { font-size: 1rem; font-weight: 600; text-transform: uppercase; }
         .aqi-city { font-size: 0.9rem; opacity: 0.8; }
 
+        /* --- Styles for the Collapsed Circle State --- */
+        .aqi-widget.is-collapsed {
+            width: 85px;  /* Set a fixed width */
+            height: 85px; /* Set a fixed height, equal to width */
+            border-radius: 50%; /* This makes the square a circle */
+            padding: 0;
+            gap: 0;
+            justify-content: center; /* Center the content horizontally */
+        }
+
+        /* Hide the title and extra text when collapsed */
+        .aqi-widget.is-collapsed .aqi-title,
+        .aqi-widget.is-collapsed .aqi-text-wrapper {
+            opacity: 0;
+            transform: scale(0.5); /* Shrink them as they fade */
+            pointer-events: none;  /* Prevent interaction with hidden elements */
+            /* We use position absolute to take them out of the layout flow,
+            preventing them from affecting the circle's size during transition. */
+            position: absolute;
+        }
+
+        /* Adjust the main value's font size to fit the circle */
+        .aqi-widget.is-collapsed .aqi-value {
+            font-size: 2.5rem;
+        }
+
 
         /* --- Mobile Styles --- */
         /* On mobile, we detach it and let it float freely again */
