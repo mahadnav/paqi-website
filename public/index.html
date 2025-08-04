@@ -217,7 +217,7 @@
                 display: flex;
                 position: fixed;
                 top: 8.5rem;
-                right: 1.5rem;
+                right: 1rem;
                 transform-origin: top right;
                 transform: scale(0.8);
                 max-width: 300px;
@@ -714,14 +714,14 @@
                             aqiCategoryEl.textContent = aqiInfo.category;
                             aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
                             /* aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`; */
-                            aqiCityEl.textContent = `${city}, ${state}`;
+                            aqiCityEl.textContent = `${city}`;
                         } else {
                             throw new Error('API returned non-success status');
                         }
                     })
                     .catch(error => {
                         console.error('Error fetching AQI data:', error);
-                        aqiValueEl.textContent = '--';
+                        aqiValueEl.textContent = '-';
                         aqiCategoryEl.textContent = 'Unavailable';
                         aqiCityEl.textContent = 'Could not load data. Is the server running?';
                         aqiPollutantEl.textContent = '';
