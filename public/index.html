@@ -216,12 +216,24 @@
             .aqi-widget {
                 display: flex;
                 position: fixed;
-                align-items: right;
                 top: 8rem;
-                /* right: -4rem; */
-                transform: scale(0.5);
-                width: 90%;
-                min-width: 240px;
+
+                /* --- KEY CHANGES --- */
+                /* 1. Set the 'right' property to position it from the right edge */
+                right: 1rem; /* Adjust this value for spacing from the edge */
+                
+                /* 2. Remove the width property that conflicts with right-alignment */
+                /* width: 90%; */ /* This was preventing proper alignment */
+
+                /* 3. Set a transform-origin so it scales from the right */
+                transform-origin: top right;
+                
+                /* 4. The 'align-items' property was invalid here and is not needed */
+                /* align-items: right; */
+
+                /* --- Existing Properties --- */
+                transform: scale(0.8); /* Adjusted scale for better visibility */
+                max-width: 300px;
             }
         }
 
