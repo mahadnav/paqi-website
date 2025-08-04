@@ -189,35 +189,31 @@
 /* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
             position: absolute;
-            background: rgba(40, 40, 40, 0.2); /* MODIFIED: Dark, semi-transparent background */
-            backdrop-filter: blur(5px);       /* MODIFIED: Increased blur for a sleeker look */
-            color: #FFFFFF;                   /* MODIFIED: Set text color to white for contrast */
-            padding: 0.75rem 1.5rem;          /* MODIFIED: Balanced padding for the horizontal layout */
+            background: rgba(40, 40, 40, 0.2);
+            backdrop-filter: blur(5px);
+            color: #FFFFFF;
+            padding: 0.75rem 1.5rem;
             border-radius: 16px;
-            border: none; /* MODIFIED: Subtle border for definition */
+            border: none;
             box-shadow: var(--shadow-subtle);
             font-family: 'Montserrat', sans-serif;
             z-index: 20;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-            /* --- ADDED: Key changes for the horizontal layout --- */
             display: flex;
             align-items: center;
-            gap: 1.25rem; /* Creates space between the number and the text block */
+            gap: 1.25rem;
         }
 
-        /* ADDED: A wrapper for the text elements to group them vertically */
         .aqi-text-wrapper {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Aligns text to the left */
+            align-items: flex-start;
             text-align: left;
         }
 
         /* --- Mobile Styles --- */
         @media (max-width: 767px) {
             .aqi-widget {
-                /* This keeps the widget centered on mobile, as in your original code. */
                 display: block;
                 position: absolute;
                 align-items: right;
@@ -225,7 +221,7 @@
                 /* right: -4rem; */
                 transform: scale(0.5);
                 width: 90%;
-                max-width: 360px; /* MODIFIED: A bit wider for the new layout */
+                min-width: 240px;
             }
         }
 
