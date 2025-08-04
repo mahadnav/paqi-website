@@ -359,18 +359,28 @@
         .legend-item { color: var(--color-background-dark); display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: opacity 0.3s; }
         .legend-item.is-dimmed { opacity: 0.3; }
         .legend-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
-        .chart-svg-container { position: relative; margin-top: -30px;}
+        
 
+        /* --- Mobile Styles --- */
         @media (max-width: 767px) {
+            .chart-svg-container {
+                overflow-x: auto; /* Allows horizontal scrolling */
+                -webkit-overflow-scrolling: touch; 
+                padding-bottom: 15px;               
+            }
+            
             .chart-svg {
-                display: block; /* Good practice for SVG containers */
-                overflow: visible;
-                width: 600px;  /* Explicitly set the desired width */
-                height: auto; /* Explicitly set a suitable height */
-                max-width: none; /* Prevent this from being shrunk by other styles */
+                /* On mobile, we override the width to make it wide for scrolling */
+                width: 800px;
+                height: 450px; /* We also set a fixed height for mobile */
             }
         }
-        .chart-svg { overflow: visible; width: max-content; }
+        .chart-svg {
+            display: block;
+            width: 100%; /* Makes the chart fill its container on desktop */
+            height: auto;  /* Height will adjust automatically to maintain the aspect ratio */
+            overflow: visible;
+        }
         .chart-svg .data-line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.4s var(--transition-curve); }
         .chart-svg .data-line.is-dimmed { opacity: 0.15; }
         .chart-svg .data-point { fill: var(--color-text-light); stroke: var(--color-text-dark); stroke-width: 2px; transition: r 0.3s, opacity 0.4s; }
@@ -566,7 +576,7 @@
                     </div>
                     <div class="chart-container">
                         <div class="chart-svg-container">
-                            <svg id="timeline-chart" class="chart-svg" viewBox="0 0 800 400" width="800" height="400"></svg>
+                            <svg id="timeline-chart" class="chart-svg" viewBox="0 0 800 400"></svg>
                         </div>
                     </div>
                 </div>
@@ -790,7 +800,22 @@
 
             // --- D3.js Chart Logic ---
             function drawChart() {
-                const svg = d3.select("#timeline-chart"), margin = {top: 60, right: 20, bottom: 60, left: 50}, width = +svg.attr("width") - margin.left - margin.right, height = +svg.attr("height") - margin.top - margin.bottom;
+                const svg = d3.select("#timeline-chart"),
+                    margin = {top: 60, right: 20, bottom: 60, left: 50};
+
+                // Get the actual rendered dimensions of the SVG element
+                const fullWidth = svg.node().getBoundingClientRect().width;
+                const fullHeight = svg.node().getBoundingClientRect().height;
+
+                // Calculate drawing area based on the real dimensions
+                const width = fullWidth - margin.left - margin.right;
+                const height = fullHeight - margin.top - margin.bottom;
+
+                // If the SVG has no height (can happen on initial load), calculate it from the width
+                // to maintain a 2:1 aspect ratio from the viewBox (800x400)
+                if (height <= 0) {
+                    height = (fullWidth / 2) - margin.top - margin.bottom;
+                }
                 const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
                 const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
                 const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
