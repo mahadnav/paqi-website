@@ -108,7 +108,11 @@
         }
 
         @media (max-width: 767px) {
-        .header-scrolled .header-logo-text {
+        
+            .header-container {
+                padding-bottom: 25px;
+            }
+            .header-scrolled .header-logo-text {
             color: var(--color-primary-blue);
             font-size: 1rem;
             transition: color 1s, font-size 1s;
@@ -665,7 +669,7 @@
             // --- AQI Widget Logic (Corrected & Secure) ---
             const aqiValueEl = document.getElementById('aqi-value');
             const aqiCategoryEl = document.getElementById('aqi-category');
-            const aqiPollutantEl = document.getElementById('aqi-pollutant');
+            /* const aqiPollutantEl = document.getElementById('aqi-pollutant'); */
             const aqiCityEl = document.getElementById('aqi-city');
 
             function getAqiInfo(aqi) {
