@@ -218,10 +218,11 @@
         @media (max-width: 767px) {
             .aqi-widget {
                 /* This keeps the widget centered on mobile, as in your original code. */
-                display: flex;
+                display: block;
+                position: absolute;
                 align-items: right;
                 top: 8rem;
-                right: -4rem;
+                /* right: -4rem; */
                 transform: scale(0.5);
                 width: 90%;
                 max-width: 360px; /* MODIFIED: A bit wider for the new layout */
