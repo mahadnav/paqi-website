@@ -89,9 +89,8 @@
             box-shadow: var(--shadow-subtle);
             padding: 0.5rem 0;
         }
-        
+
         .header-container {
-            position: relative;
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
@@ -184,103 +183,101 @@
         .hero-nav-links a:hover { color: white; font-weight: 600; border-bottom-color: var(--color-primary-blue); width: 225px; transition: all 0.5s; }
         .hero-nav-grid { display: flex; gap: 1rem; }
         @media (min-width: 768px) { 
-            .hero-nav-links { 
-                display: block; 
-                overflow: visible; 
-                white-space: normal; 
-                padding-left: 0; padding-right: 0; 
-            } 
-            .hero-nav-grid { 
-                grid-template-columns: repeat(4, 1fr); 
-                gap: 1rem; 
-                width: 100%; 
-                max-width: 1200px; 
-                margin: 0 auto; 
-                display: flex; 
-                justify-content: space-between; 
-            } 
+            .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } 
         }
 
-/* --- AQI Widget (Aligned with Header Container) --- */
+/* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
-            /* --- Positioning --- */
             position: absolute;
-            top: 100%; /* Position the top of the widget at the bottom of the header container */
-            right: 0;  /* Align the right edge of the widget with the right edge of the header container */
-            margin-top: 1.5rem; /* Add some space below the header's bottom border */
-            z-index: 20;
-
-            /* --- Visuals & Sizing --- */
             background: rgba(40, 40, 40, 0.2);
             backdrop-filter: blur(5px);
             color: #FFFFFF;
             padding: 0.75rem 1.5rem;
             border-radius: 16px;
+            border: none;
+            box-shadow: var(--shadow-subtle);
+            font-family: 'Montserrat', sans-serif;
+            z-index: 20;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             display: flex;
             align-items: center;
             gap: 1.2rem;
-            transform: scale(0.9); /* Slightly scale it down to match the design */
-            transform-origin: top right; /* Scale from the corner it's anchored to */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-            cursor: pointer; /* Add this to show it's clickable */
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        .aqi-widget:hover {
-            transform: translateY(-2px) scale(0.92);
-            box-shadow: var(--shadow-lifted);
+            transform-origin: top right;
+            right: 5rem;
         }
 
         .aqi-text-wrapper {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+            text-align: right;
         }
-
-        .aqi-title { font-size: 0.9rem; font-weight: 500; opacity: 0.8; transition: opacity 0.2s ease-out, transform 0.3s ease-out; }
-        .aqi-value { font-size: 2rem; font-weight: 700; transition: font-size 0.4s ease-in-out;}
-        .aqi-category { font-size: 1rem; font-weight: 600; text-transform: uppercase; }
-        .aqi-city { font-size: 0.9rem; opacity: 0.8; }
-
-        /* --- Styles for the Collapsed Circle State --- */
-        .aqi-widget.is-collapsed {
-            width: 85px;  /* Set a fixed width */
-            height: 85px; /* Set a fixed height, equal to width */
-            border-radius: 50%; /* This makes the square a circle */
-            padding: 0;
-            gap: 0;
-            justify-content: center; /* Center the content horizontally */
-        }
-
-        /* Hide the title and extra text when collapsed */
-        .aqi-widget.is-collapsed .aqi-title,
-        .aqi-widget.is-collapsed .aqi-text-wrapper {
-            opacity: 0;
-            transform: scale(0.5); /* Shrink them as they fade */
-            pointer-events: none;  /* Prevent interaction with hidden elements */
-            /* We use position absolute to take them out of the layout flow,
-            preventing them from affecting the circle's size during transition. */
-            position: absolute;
-        }
-
-        /* Adjust the main value's font size to fit the circle */
-        .aqi-widget.is-collapsed .aqi-value {
-            font-size: 2.5rem;
-        }
-
 
         /* --- Mobile Styles --- */
-        /* On mobile, we detach it and let it float freely again */
         @media (max-width: 767px) {
             .aqi-widget {
-                position: fixed; /* Detach from the header on mobile */
-                top: 8rem;
+                display: flex;
+                position: fixed;
+                top: 8.5rem;
                 right: 1rem;
-                transform: scale(0.8); /* Adjust scale for mobile */
-                margin-top: 0; /* Reset the margin */
+                transform-origin: top right;
+                transform: scale(0.5);
+                max-width: 340px;
             }
+            .aqi-value {
+            font-size: 10px;
+            }
+            .aqi-category {
+                font-size: 8px;
+            }
+            .aqi-pollutant {
+                font-size: 0.4rem;
+            }
+            .aqi-city {
+                font-size: 7px;
+            }
+        }
+
+        /* --- Desktop Styles --- */
+        @media (min-width: 768px) {
+            .aqi-widget {
+                top: 8.5rem;
+                right: 11rem;
+                max-width: 400px;
+                transform: scale(0.8);
+            }
+
+            .aqi-widget:hover {
+                box-shadow: var(--shadow-lifted);
+                transform: translateY(-2px) scale(0.85);
+            }
+        }
+
+        .aqi-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+        }
+        .aqi-category {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0; /* RESET: Margin handled by parent containers */
+        }
+        .aqi-pollutant {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin: 0; /* RESET */
+            margin-top: 0.25rem; /* Keeps a small space if used */
+        }
+        .aqi-city {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-family: var(--font-main);
+            margin: 0; /* RESET */
+            margin-top: 0.2rem; /* MODIFIED: Small space from category */
         }
 
         /* AQI Color classes are unchanged and should work as before */
@@ -695,14 +692,6 @@
             const aqiCategoryEl = document.getElementById('aqi-category');
             /* const aqiPollutantEl = document.getElementById('aqi-pollutant'); */
             const aqiCityEl = document.getElementById('aqi-city');
-
-            const aqiWidget = document.getElementById('aqi-widget');
-            if (aqiWidget) {
-                aqiWidget.addEventListener('click', () => {
-                    aqiWidget.classList.toggle('is-collapsed');
-                });
-            }
-        });
 
             function getAqiInfo(aqi) {
                 if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
