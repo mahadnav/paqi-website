@@ -185,8 +185,8 @@
 /* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
             position: absolute;
-            background: rgba(40, 40, 40, 0.5); /* MODIFIED: Dark, semi-transparent background */
-            backdrop-filter: blur(8px);       /* MODIFIED: Increased blur for a sleeker look */
+            background: rgba(40, 40, 40, 0.2); /* MODIFIED: Dark, semi-transparent background */
+            backdrop-filter: blur(5px);       /* MODIFIED: Increased blur for a sleeker look */
             color: #FFFFFF;                   /* MODIFIED: Set text color to white for contrast */
             padding: 0.75rem 1.5rem;          /* MODIFIED: Balanced padding for the horizontal layout */
             border-radius: 16px;
@@ -225,8 +225,8 @@
         /* --- Desktop Styles --- */
         @media (min-width: 768px) {
             .aqi-widget {
-                top: 2rem;      /* MODIFIED: Moved closer to the top */
-                right: 2rem;    /* MODIFIED: Moved closer to the right */
+                top: 8rem;      /* MODIFIED: Moved closer to the top */
+                right: 8rem;    /* MODIFIED: Moved closer to the right */
                 width: auto;    /* MODIFIED: Width now adapts to its content */
             }
 
@@ -236,12 +236,9 @@
             }
         }
 
-        /* --- Text Element Adjustments --- */
-        /* (Removed .aqi-title as it wasn't in the example) */
-
         .aqi-value {
             font-family: 'Montserrat', sans-serif;
-            font-size: 2.75rem; /* MODIFIED: Larger for more impact */
+            font-size: 2rem; /* MODIFIED: Larger for more impact */
             font-weight: 700;
             line-height: 1;
             margin: 0; /* RESET: Margin handled by flexbox */
