@@ -211,7 +211,7 @@
             margin-right: 1.2rem;
         }
         .aqi-widget > *:last-child {
-            margin-right: 0.5rem;
+            margin-right: 0rem;
         }
 
         .aqi-text-wrapper {
@@ -307,6 +307,7 @@
             line-height: 1;
             margin: 0; /* RESET: Margin handled by flexbox */
             transition: font-size 0.4s ease-in-out; /* Smooth font size change */
+            align-items: center;
         }
         .aqi-category {
             font-size: 1rem;
@@ -325,7 +326,7 @@
             opacity: 0.8;
             font-family: var(--font-main);
             margin: 0; /* RESET */
-            margin-top: 0.2rem; /* MODIFIED: Small space from category */
+            margin-top: 0.1rem; /* MODIFIED: Small space from category */
         }
 
         /* AQI Color classes are unchanged and should work as before */
@@ -521,7 +522,7 @@
         <section id="hero" class="hero-section">
             <div class="aqi-widget" id="aqi-widget">
                 <div class="aqi-title collapsible-item">AQI</div>
-                <div class="aqi-value" id="aqi-value"></div>
+                <div class="aqi-value" id="aqi-value"> </div>
                 <div class="aqi-text-wrapper collapsible-item">
                     <div class="aqi-category" id="aqi-category">Fetching</div>
                     <div class="aqi-city" id="aqi-city">Determining location...</div>
