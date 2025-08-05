@@ -200,7 +200,7 @@
             z-index: 20;
             transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out, min-width 0.4s ease-in-out, padding 0.4s ease-in-out, border-radius 0.4s ease-in-out;
             display: flex;
-            align-items: center;
+            align-items: baseline; /* MODIFIED: To fix vertical alignment issue */
             cursor: pointer; /* Added for collapse functionality */
             transform-origin: top right;
             right: 5rem;
@@ -209,9 +209,10 @@
         /* Added to replace gap for animation control */
         .aqi-widget > * {
             margin-right: 1.2rem;
+            flex-shrink: 0; /* ADDED: To prevent items from overlapping */
         }
         .aqi-widget > *:last-child {
-            margin-right: 0rem;
+            margin-right: 0;
         }
 
         .aqi-text-wrapper {
@@ -226,12 +227,12 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            justify-content: center;
+            /* justify-content: center; */ /* REMOVED: To allow proper baseline alignment */
             max-width: 200px;
             overflow: hidden;
             white-space: nowrap;
             opacity: 1;
-            transition: max-width 1s ease-in-out, opacity 0.3s linear, margin-right 1s cubic-bezier(0.86, 0, 0.07, 1);
+            transition: max-width 0.4s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.2s linear, margin-right 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
 
         /* Styles for the collapsed circle state */
@@ -307,7 +308,6 @@
             line-height: 1;
             margin: 0; /* RESET: Margin handled by flexbox */
             transition: font-size 0.4s ease-in-out; /* Smooth font size change */
-            align-items: center;
         }
         .aqi-category {
             font-size: 1rem;
@@ -326,7 +326,7 @@
             opacity: 0.8;
             font-family: var(--font-main);
             margin: 0; /* RESET */
-            margin-top: 0.1rem; /* MODIFIED: Small space from category */
+            margin-top: 0.2rem; /* MODIFIED: Small space from category */
         }
 
         /* AQI Color classes are unchanged and should work as before */
@@ -522,7 +522,7 @@
         <section id="hero" class="hero-section">
             <div class="aqi-widget" id="aqi-widget">
                 <div class="aqi-title collapsible-item">AQI</div>
-                <div class="aqi-value" id="aqi-value"> </div>
+                <div class="aqi-value" id="aqi-value">...</div>
                 <div class="aqi-text-wrapper collapsible-item">
                     <div class="aqi-category" id="aqi-category">Fetching</div>
                     <div class="aqi-city" id="aqi-city">Determining location...</div>
@@ -687,7 +687,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>About PAQI</h4>
-                    <p style="color: white">The Pakistan Air Quality Initiative (PAQI) is an independent research and advocacy organization dedicated towards a breathable and healthy Pakistan, with robust scientific insights and data-driven solutions to overcome the air pollution crisis. Our vision is a future where every Pakistani breathes clean air, supported by informed policies and an engaged society.</p>
+                    <p>The Pakistan Air Quality Initiative (PAQI) is an independent research and advocacy organization dedicated towards a breathable and healthy Pakistan, with robust scientific insights and data-driven solutions to overcome the air pollution crisis. Our vision is a future where every Pakistani breathes clean air, supported by informed policies and an engaged society.</p>
                 </div>
                 <div class="footer-col" style="padding-left: 3rem;">
                     <h4>Navigate</h4>
