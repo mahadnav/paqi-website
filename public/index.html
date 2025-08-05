@@ -198,21 +198,14 @@
             box-shadow: var(--shadow-subtle);
             font-family: 'Montserrat', sans-serif;
             z-index: 20;
-            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out, min-width 0.4s ease-in-out, padding 0.4s ease-in-out, border-radius 0.4s ease-in-out;
-            display: flex;
-            align-items: baseline; /* MODIFIED: To fix vertical alignment issue */
-            cursor: pointer; /* Added for collapse functionality */
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out, min-width 0.4s ease-in-out, padding 0.4s ease-in-out, border-radius 0.4s ease-in-out, column-gap 0.4s ease-in-out;
+            display: grid; /* MODIFIED: Using Grid for stable layout */
+            grid-template-columns: auto auto 1fr; /* MODIFIED: Explicit columns to prevent overlap */
+            align-items: center; /* MODIFIED: Switched back to center for better visual alignment */
+            column-gap: 1rem; /* MODIFIED: Using gap for reliable spacing */
+            cursor: pointer;
             transform-origin: top right;
             right: 5rem;
-        }
-
-        /* Added to replace gap for animation control */
-        .aqi-widget > * {
-            margin-right: 1.2rem;
-            flex-shrink: 0; /* ADDED: To prevent items from overlapping */
-        }
-        .aqi-widget > *:last-child {
-            margin-right: 0;
         }
 
         .aqi-text-wrapper {
@@ -222,49 +215,49 @@
             text-align: right;
         }
         
-        /* New class for all items that will collapse */
+        /* Class for all items that will collapse */
         .collapsible-item {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            /* justify-content: center; */ /* REMOVED: To allow proper baseline alignment */
             max-width: 200px;
             overflow: hidden;
             white-space: nowrap;
             opacity: 1;
-            transition: max-width 0.4s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.2s linear, margin-right 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+            transition: max-width 0.4s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.2s linear, visibility 0s linear 0.4s;
+            visibility: visible;
         }
 
         /* Styles for the collapsed circle state */
         .aqi-widget.collapsed {
             width: 100px;
             height: 100px;
-            min-width: 100px; /* Overrides desktop style */
+            min-width: 100px; 
             border-radius: 50%;
             padding: 0;
-            justify-content: center; /* Centers the single remaining item */
+            display: grid; /* Ensure display is grid */
+            place-items: center; /* Perfectly center the single remaining item */
+            grid-template-columns: 1fr; /* A single column for the centered item */
+            column-gap: 0;
         }
         
         /* Hides the collapsible items */
         .aqi-widget.collapsed .collapsible-item {
             max-width: 0;
             opacity: 0;
-            margin-right: 0;
+            visibility: hidden; /* Hide completely after animation */
+            transition: max-width 0.4s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.2s linear, visibility 0s linear 0s;
         }
         
-        /* Removes margin from the AQI value when it's the only item */
-        .aqi-widget.collapsed > * {
-            margin-right: 0;
-        }
-
         .aqi-widget.collapsed .aqi-value {
             font-size: 2.25rem; /* Make font bigger in circle view */
+            margin: 0; /* Ensure no margin interferes with centering */
         }
 
         /* --- Mobile Styles --- */
         @media (max-width: 767px) {
             .aqi-widget {
-                display: flex;
+                /* display: flex;  -- It's grid now */
                 position: absolute;
                 top: 8.5rem;
                 right: 1rem;
@@ -306,27 +299,27 @@
             font-size: 1.75rem;
             font-weight: 700;
             line-height: 1;
-            margin: 0; /* RESET: Margin handled by flexbox */
+            margin: 0; /* RESET: Margin handled by grid gap */
             transition: font-size 0.4s ease-in-out; /* Smooth font size change */
         }
         .aqi-category {
             font-size: 1rem;
             font-weight: 600;
             text-transform: uppercase;
-            margin: 0; /* RESET: Margin handled by parent containers */
+            margin: 0;
         }
         .aqi-pollutant {
             font-size: 0.8rem;
             opacity: 0.7;
-            margin: 0; /* RESET */
-            margin-top: 0.25rem; /* Keeps a small space if used */
+            margin: 0; 
+            margin-top: 0.25rem; 
         }
         .aqi-city {
             font-size: 0.9rem;
             opacity: 0.8;
             font-family: var(--font-main);
-            margin: 0; /* RESET */
-            margin-top: 0.2rem; /* MODIFIED: Small space from category */
+            margin: 0; 
+            margin-top: 0.2rem;
         }
 
         /* AQI Color classes are unchanged and should work as before */
