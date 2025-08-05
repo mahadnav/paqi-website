@@ -72,7 +72,7 @@
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
 
-/* --- Sticky Header (Refined) --- */
+/* --- Sticky Header --- */
         .site-header {
             position: fixed;
             top: 0;
@@ -80,12 +80,12 @@
             right: 0;
             z-index: 1000;
             padding: 2rem 0;
-            transition: padding 0.5s ease, background-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
+            transition: padding 1s ease, box-shadow 1s ease;
         }
 
         .header-scrolled {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
+            background-color: rgba(220, 220, 220, 0.2);
+            backdrop-filter: blur(5px);
             box-shadow: var(--shadow-subtle);
             padding: 0.5rem 0;
         }
@@ -97,123 +97,244 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding-bottom: 1.5rem;
-            transition: border-bottom 0.5s ease, padding-bottom 0.5s ease;
-            position: relative; /* Context for AQI widget */
+            border-bottom: 0.2px solid rgba(255,255,255,0.3);
+            padding-bottom: 50px;
+            transition: border-bottom 0.3s ease;
         }
 
         .header-scrolled .header-container {
-            border-bottom-color: transparent;
-            padding-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0px;
         }
+
+        @media (max-width: 767px) {
         
-        .header-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-        .header-logo-icon { height: 2.5rem; width: 2.5rem; transition: all 0.5s ease; }
-        .header-logo-text { font-size: 1.2rem; font-weight: 500; color: var(--color-text-light); transition: color 0.3s; }
+            .header-container {
+                padding-bottom: 20px;
+            }
+            .header-scrolled .header-logo-text {
+            color: var(--color-primary-blue);
+            font-size: 1rem;
+            transition: color 1s, font-size 1s;
+        }
+        .header-logo-icon { height: 1.5rem; width: 1.5rem; color: var(--color-secondary-blue); }
+        }
+
+        @media (min-width: 768px) { 
+            .header-logo-text {
+            color: var(--color-primary-blue);
+            font-size: 1.5rem;
+            } 
+        }
+
+        .header-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+        .header-logo-icon { height: 2rem; width: 2rem; color: var(--color-secondary-blue); }
+        .header-logo-text { font-size: 1.5rem; font-weight: 500; color: var(--color-text-light); transition: color 0.3s; }
+        .header-logo-text:hover { color: var(--color-primary-blue); }
         .header-scrolled .header-logo-text { color: var(--color-primary-blue); }
-        .header-scrolled .header-logo-icon { height: 2rem; width: 2rem; }
 
         .header-nav { display: none; }
         @media (min-width: 768px) { 
-            .header-nav { display: flex; align-items: center; gap: 2.5rem; } 
+            .header-nav { display: flex; align-items: center; gap: 2rem; } 
         }
         
-        .header-nav-link { color: var(--color-text-light); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .header-nav-link { color: var(--color-text-light); text-decoration: none; font-weight: 300; transition: color 0.3s; }
         .header-scrolled .header-nav-link { color: var(--color-primary-blue); }
         .header-nav-link:hover { color: var(--color-secondary-blue); }
         
         .header-cta { display: none; }
         @media (min-width: 768px) { 
         .header-cta { 
-            display: block; background-color: transparent; color: var(--color-text-light); border: 1px solid var(--color-text-light);
-            padding: 0.6rem 1.5rem; border-radius: 100px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
-            .header-scrolled .header-cta { background-color: var(--color-primary-blue); border-color: var(--color-primary-blue); color: white;}
-            .header-cta:hover { background-color: var(--color-text-light); color: var(--color-primary-blue); transform: scale(1.05); }
+            display: block; background-color: transparent; color: var(--color-text-light); border: 1.5px solid whitesmoke;
+            padding: 0.5rem 1.25rem; border-radius: 100px; text-decoration: none; font-weight: 700; transition: all 0.3s; } 
         }
+        .header-cta:hover { background-color: var(--color-primary-blue); transform: scale(1.1); border: none;}
         
-        .mobile-menu-button { display: block; background: none; border: none; cursor: pointer; padding: 0; color: var(--color-text-light); transition: color 0.3s; z-index: 1001; }
+        .mobile-menu-button { display: block; background: none; border: none; cursor: pointer; padding: 0; color: var(--color-text-light); transition: color 0.3s; }
         .header-scrolled .mobile-menu-button { color: var(--color-primary-blue); }
         .mobile-menu-icon { width: 1.75rem; height: 1.75rem; }
-        @media (min-width: 768px) { .mobile-menu-button { display: none; } }
-        
-        .mobile-menu { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(5px);
-            z-index: 1000; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transform: translateY(-100%); 
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
-            visibility: hidden;
+        @media (min-width: 768px) { 
+            .mobile-menu-button { display: none; } .mobile-menu-icon { width: 1rem; height: auto; } 
         }
-        .mobile-menu.is-open { transform: translateY(0); visibility: visible; }
-        .mobile-menu a { font-size: 1.75rem; color: var(--color-primary-blue); text-decoration: none; font-weight: 600; padding: 1rem; }
+        .mobile-menu { background-color: white; padding: 1rem; border-radius: 8px; box-shadow: var(--shadow-lifted); margin-top: 1rem; width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .mobile-menu.hidden { display: none; }
+        .mobile-menu a { display: block; padding: 0.75rem 1rem; color: var(--color-text-dark); text-decoration: none; font-weight: 600; border-radius: 6px; }
+        .mobile-menu a:hover { background-color: var(--color-background-light); }
 
 /* --- Hero Section --- */
-        .hero-section { height: 100vh; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 5%; }
+        .hero-section { height: 100vh; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 1rem; }
         .hero-slide-container { position: absolute; inset: 0; }
         .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; z-index: 0; transform: scale(1); transition: opacity 2s ease-in-out, transform 10s ease-in-out; }
         .hero-slide.active { opacity: 1; z-index: 1; transform: scale(1.2); }
-        .hero-overlay { position: absolute; inset: 0; background-color: rgba(0, 20, 40, 0.6); z-index: 1;}
-        .hero-content { position: relative; z-index: 10; width: 90%; max-width: 1200px; text-align: left; }
-        @media (min-width: 768px) { .hero-section { align-items: center; } }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); color: var(--color-text-light); }
-        .hero-content p { font-size: clamp(1rem, 3vw, 1.25rem); color: var(--color-text-light); opacity: 0.9; max-width: 700px; margin: 1rem 0 2rem 0; }
-        .hero-content .cta-button { color: var(--color-text-light); text-decoration: none; }
-        .hero-nav-links { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 10; width: 90%; max-width: 1200px; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .hero-nav-links a { flex-shrink: 0; padding: 0 1rem 1rem 1rem; color: rgba(255, 255, 255, 0.8); text-decoration: none; border-bottom: 2px solid rgba(255, 255, 255, 0.3); transition: all 0.3s; }
+        .is-loaded .hero-slide.active { opacity: 1; z-index: 1; transform: scale(1.2); }
+        .hero-overlay { position: absolute; inset: 0; background-color: rgba(0, 20, 40, 0.6); }
+        .hero-content { position: relative; z-index: 10; width: 90%; max-width: 1200px; margin-top: 0; justify-content: flex-start; text-align: left; }
+        .hero-text-container { max-width: 650px; margin: 0; width: 100%; }
+        @media (min-width: 768px) { 
+            .hero-section { padding: 0; align-items: center; } 
+        }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); color: var(--color-text-light); margin-left: 0; text-align: left; font-weight: 500; }
+        .hero-content p { font-size: clamp(1rem, 3vw, 1.25rem); color: var(--color-text-light); opacity: 0.9; max-width: 700px; margin: 0 0 1rem 0; text-align: left; }
+        .hero-content .cta-button { margin-left: 0; text-decoration: none; color: #DDE1E7; }
+        .hero-content .cta-button:hover { transform: translateY(-3px); color: var(--color-primary-blue); font-weight: bolder;}
+        .hero-nav-links { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 10; width: 90%; max-width: 1200px; font-weight: 600; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; gap: 1rem; }
+        .hero-nav-links a { display: flex; flex-shrink: 0; padding: 0rem 0 1rem 0; color: rgba(255, 255, 255, 0.8); text-decoration: none; border-bottom: 2px solid rgba(255, 255, 255, 0.3); width: 200px; transition: all 0.3s; white-space: nowrap; font-weight: 400; }
         .hero-nav-links::-webkit-scrollbar { display: none; }
-        .hero-nav-links a:hover { color: white; border-bottom-color: var(--color-primary-blue); }
-        @media (min-width: 768px) { .hero-nav-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; overflow: visible;} }
+        .hero-nav-links a:hover { color: white; font-weight: 600; border-bottom-color: var(--color-primary-blue); width: 225px; transition: all 0.5s; }
+        .hero-nav-grid { display: flex; gap: 1rem; }
+        @media (min-width: 768px) { 
+            .hero-nav-links { display: block; overflow: visible; white-space: normal; padding-left: 0; padding-right: 0; } .hero-nav-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; } 
+        }
 
-/* --- AQI Widget (Refined & Interactive) --- */
+/* --- AQI Widget (Updated & Responsive) --- */
         .aqi-widget {
             position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 1.5rem;
-            z-index: 990;
-            background: rgba(40, 40, 40, 0.3);
-            backdrop-filter: blur(10px);
-            color: var(--color-text-light);
+            background: rgba(40, 40, 40, 0.2);
+            backdrop-filter: blur(5px);
+            color: #FFFFFF;
             padding: 0.75rem 1.5rem;
             border-radius: 16px;
+            border: none;
+            box-shadow: var(--shadow-subtle);
+            font-family: 'Montserrat', sans-serif;
+            z-index: 20;
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, width 0.4s ease-in-out, height 0.4s ease-in-out, min-width 0.4s ease-in-out, padding 0.4s ease-in-out, border-radius 0.4s ease-in-out;
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            cursor: pointer; /* Added for collapse functionality */
             transform-origin: top right;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            right: 5rem;
         }
-        .aqi-text-wrapper, .aqi-title { transition: opacity 0.2s ease-out, transform 0.3s ease-out; }
-        .aqi-value { transition: font-size 0.4s ease-in-out; }
-        .aqi-widget.is-collapsed {
-            width: 85px; height: 85px; border-radius: 50%;
-            padding: 0; gap: 0; justify-content: center;
+
+        /* Added to replace gap for animation control */
+        .aqi-widget > * {
+            margin-right: 1.2rem;
         }
-        .aqi-widget.is-collapsed .aqi-title,
-        .aqi-widget.is-collapsed .aqi-text-wrapper {
-            opacity: 0; transform: scale(0.5); pointer-events: none; position: absolute;
+        .aqi-widget > *:last-child {
+            margin-right: 0;
         }
-        .aqi-widget.is-collapsed .aqi-value { font-size: 2.5rem; }
-        .aqi-text-wrapper { display: flex; flex-direction: column; align-items: flex-start; }
-        .aqi-title, .aqi-value, .aqi-category, .aqi-city { margin: 0; }
-        .aqi-title { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
-        .aqi-value { font-family: var(--font-mono); font-size: 2rem; font-weight: 700; line-height: 1; }
-        .aqi-category { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; line-height: 1.2; }
-        .aqi-city { font-size: 0.75rem; opacity: 0.8; }
-        .aqi-good { color: var(--aqi-good); } .aqi-moderate { color: var(--aqi-moderate); } .aqi-usg { color: var(--aqi-usg); } .aqi-unhealthy { color: var(--aqi-unhealthy); } .aqi-very-unhealthy { color: var(--aqi-very-unhealthy); } .aqi-hazardous { color: var(--aqi-hazardous); }
+
+        .aqi-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: right;
+        }
+        
+        /* New class for all items that will collapse */
+        .collapsible-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 1;
+            transition: max-width 0.4s cubic-bezier(0.86, 0, 0.07, 1), opacity 0.2s linear, margin-right 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        /* Styles for the collapsed circle state */
+        .aqi-widget.collapsed {
+            width: 100px;
+            height: 100px;
+            min-width: 100px; /* Overrides desktop style */
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center; /* Centers the single remaining item */
+        }
+        
+        /* Hides the collapsible items */
+        .aqi-widget.collapsed .collapsible-item {
+            max-width: 0;
+            opacity: 0;
+            margin-right: 0;
+        }
+        
+        /* Removes margin from the AQI value when it's the only item */
+        .aqi-widget.collapsed > * {
+            margin-right: 0;
+        }
+
+        .aqi-widget.collapsed .aqi-value {
+            font-size: 2.25rem; /* Make font bigger in circle view */
+        }
+
+        /* --- Mobile Styles --- */
         @media (max-width: 767px) {
             .aqi-widget {
-                position: fixed;
-                top: auto;
-                bottom: 1rem;
+                display: flex;
+                position: absolute;
+                top: 8.5rem;
                 right: 1rem;
-                margin-top: 0;
-                transform: scale(0.9);
+                transform-origin: top right;
+                transform: scale(0.5);
+                max-width: 340px;
             }
-            .aqi-widget.is-collapsed { bottom: 1rem; right: 1rem; }
+            .aqi-value {
+            font-size: 10px;
+            }
+            .aqi-category {
+                font-size: 8px;
+            }
+            .aqi-pollutant {
+                font-size: 0.4rem;
+            }
+            .aqi-city {
+                font-size: 7px;
+            }
         }
+
+        /* --- Desktop Styles --- */
+        @media (min-width: 768px) {
+            .aqi-widget {
+                top: 8.5rem;
+                right: 14rem;
+                min-width: 340px;
+                transform: scale(0.8);
+            }
+
+            .aqi-widget:hover {
+                box-shadow: var(--shadow-lifted);
+                transform: translateY(-2px) scale(0.85); /* MODIFIED: Refined hover effect */
+            }
+        }
+
+        .aqi-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0; /* RESET: Margin handled by flexbox */
+            transition: font-size 0.4s ease-in-out; /* Smooth font size change */
+        }
+        .aqi-category {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0; /* RESET: Margin handled by parent containers */
+        }
+        .aqi-pollutant {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin: 0; /* RESET */
+            margin-top: 0.25rem; /* Keeps a small space if used */
+        }
+        .aqi-city {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-family: var(--font-main);
+            margin: 0; /* RESET */
+            margin-top: 0.2rem; /* MODIFIED: Small space from category */
+        }
+
+        /* AQI Color classes are unchanged and should work as before */
+        .aqi-good { color: var(--aqi-good); }
+        .aqi-moderate { color: var(--aqi-moderate); }
+        .aqi-usg { color: var(--aqi-usg); }
+        .aqi-unhealthy { color: var(--aqi-unhealthy); }
+        .aqi-very-unhealthy { color: var(--aqi-very-unhealthy); }
+        .aqi-hazardous { color: var(--aqi-hazardous); }
 
 /* --- Impact Section --- */
         .impact-section { background-color: white; }
@@ -225,6 +346,7 @@
         .impact-item { padding: 2.5rem 2rem; border-radius: 12px; color: var(--color-text-light); box-shadow: var(--shadow-subtle); transition: transform 0.3s, box-shadow 0.3s; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .impact-item:nth-child(1), .impact-item:nth-child(2), .impact-item:nth-child(3) { background-color: var(--color-primary-blue); }
         .impact-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lifted); }
+        .impact-item-icon { display: none; }
         .impact-item-number { font-family: var(--font-heading); font-size: clamp(2rem, 7vw, 3rem); font-weight: 500; color: inherit; margin-bottom: 0.5rem; line-height: 1; }
         .impact-item-text { font-size: 1rem; color: inherit; opacity: 1; max-width: 250px; margin: 0; }
         .impact-section .more-monitors-headline { font-size: 24px; font-weight: 300; padding-top: 30px; text-align: center; color: var(--color-text-dark); }
@@ -238,13 +360,17 @@
         .partner-logo { max-height: 50px; width: auto; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s; }
         .partner-logo:hover { filter: grayscale(0); opacity: 1; transform: scale(1.1); }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @media (max-width: 768px) { .partners-slider { padding: 0 20px; } .slide-track { gap: 40px; } .slide { width: 100px; height: 80px; } .partner-logo { max-height: 40px; } }
+        @media (max-width: 768px) { 
+            .partners-slider { padding: 0 20px; } .slide-track { gap: 40px; } .slide { width: 100px; height: 80px; } .partner-logo { max-height: 40px; } 
+        }
 
 /* --- Map Section --- */
         .map-section { background-color: var(--color-background-dark); padding: 50px 0; }
         .map-section .section-headline { color: var(--color-text-light); }
         .map-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
-        @media (min-width: 768px) { .map-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 768px) { 
+            .map-grid { grid-template-columns: 1fr 1fr; } 
+        }
         .map-legend p { color: var(--color-text-light); opacity: 0.8; margin-bottom: 1.5rem; }
         .map-legend-items { display: flex; flex-wrap: wrap; gap: 1rem; }
         .legend-item { display: flex; align-items: center; font-size: 0.9rem; color: var(--color-text-light); }
@@ -265,26 +391,57 @@
         .map-tooltip .unit { font-size: 0.8rem; opacity: 0.7; margin-left: 4px;}
 
 /* --- Chart Section --- */
-        .dataviz-section { overflow: hidden; background: var(--color-background-light); }
-        .chart-grid { display: flex; flex-wrap: wrap; align-items: flex-start; }
-        .chart-header, .chart-container { flex: 1 1 50%; }
-        .chart-container { min-width: 0; }
-        .chart-legend { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 2rem; }
-        .legend-item { display: flex; align-items: center; cursor: pointer; transition: opacity 0.3s; }
+        .chart-wrapper {width: 90%; max-width: 1200px; margin: 100px auto 0;}
+        .dataviz-section { overflow: hidden; background: var(--color-background-light); align-content: center;}
+        .chart-grid { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+        .chart-container {flex: 1 1 50%; padding-top: -50px; padding-bottom: 10rem;}
+        .chart-header { flex: 1 1 50%; padding-right: 2rem; }
+        .chart-legend { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: -30px; margin-top: 60px; justify-content: center;}
+        .legend-item { color: var(--color-background-dark); display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: opacity 0.3s; }
         .legend-item.is-dimmed { opacity: 0.3; }
         .legend-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
         
-        .chart-svg { display: block; width: 100%; height: auto; overflow: visible; }
+        .chart-svg {
+            display: block;
+            width: 90%;
+            height: auto;
+            overflow: visible;
+            max-width: 950px;
+            justify-content: center;
+            justify-items: center;
+            align-items: center;
+            padding-bottom: 15px;
+        }
+
+        /* --- Mobile Styles --- */
+        @media (max-width: 767px) {
+            .chart-svg {
+                width: 500px;
+                height: auto;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; 
+                padding-bottom: 5px;
+                padding-left: 5px;   
+                max-width: 600px;         
+            }
+            .chart-container {flex: 1 1 50%; padding-top: -30px; padding-bottom: 25px;}
+            .legend-item { font-size: 0.6rem; align-items: left; align-content: left;}
+            .legend-color { width: 8px; height: 8px; margin-right: 5px; }
+            .chart-svg .data-point.is-dimmed { opacity: 0; }
+
+        }
+        
+        .chart-svg .data-line { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.4s var(--transition-curve); }
+        .chart-svg .data-line.is-dimmed { opacity: 0.15; }
+        .chart-svg .data-point { fill: var(--color-text-light); stroke: var(--color-text-dark); stroke-width: 2px; transition: r 0.3s, opacity 0.4s; }
+        .chart-svg .data-point.is-dimmed { opacity: 0; }
+        .chart-svg .data-point:hover { r: 6; }
+        .chart-svg .tooltip-text { fill: var(--color-text-dark); font-size: 12px; font-weight: 500; }
         .y-axis .tick line { stroke: var(--color-border); }
         .y-axis .tick:first-of-type line { stroke-dasharray: 4 4; }
+        .y-axis .tick text { font-family: var(--font-main); fill: var(--color-text-dark); font-size: 12px; }
         .y-axis .domain { display: none; }
-        .chart-svg .data-line { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: opacity 0.4s; }
-        .chart-svg .data-line.is-dimmed { opacity: 0.15; }
-        @media (max-width: 767px) {
-            .chart-grid { flex-direction: column; }
-            .chart-svg-container { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 15px; }
-            .chart-svg { width: 800px; height: 550px; }
-        }
+        .tooltip { position: absolute; background: rgba(255, 255, 255, 0.9); padding: 5px 10px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); pointer-events: none; opacity: 0; }
 
 /* --- Blog & Team Sections --- */
         .blog-section, .team-section { background-color: var(--color-text-light); }
@@ -311,20 +468,27 @@
         .team-card p { font-size: 0.9rem; color: var(--color-secondary-blue); opacity: 1; }
 
 /* --- Footer --- */
-        .site-footer { background: var(--color-primary-blue); color: rgba(255, 255, 255, 0.7); padding: 0; }
+        .site-footer { background: var(--color-primary-blue); color: rgba(255, 255, 255, 0.7); padding: 5x 0; margin-bottom: -75px;}
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
-        .footer-col h4 { color: white; margin-bottom: 1.5rem; }
-        .footer-col ul { list-style: none; padding: 0;}
-        .footer-col ul li { margin-bottom: 0.75rem; }
-        .footer-col a { text-decoration: none; color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-col h4 { color: white; font-size: 1.1rem; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { font-size: 0.9rem; color: rgba(255, 255, 255, 0.7); text-decoration: none; }
         .footer-col a:hover { color: white; }
-        .footer-socials { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
-        .footer-socials svg { width: 24px; height: 24px; transition: color 0.3s ease, transform 0.3s ease; }
-        .footer-socials a:hover svg { color: white; transform: scale(1.1); }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 0.5rem; }
+        .footer-socials { display: flex; gap: 1rem; margin-top: 2rem; }
+        .footer-socials a { color: rgba(255, 255, 255, 0.7); }
+        .footer-socials a:hover { color: white; }
         .footer-subscribe-form { display: flex; margin-top: 1rem; }
-        .footer-subscribe-form input { width: 100%; border: 1px solid rgba(255,255,255,0.2); background: transparent; padding: 0.75rem; border-radius: 6px 0 0 6px; color: white; }
-        .footer-subscribe-form button { border: none; background: var(--color-secondary-blue); color: white; padding: 0.75rem 1.25rem; border-radius: 0 6px 6px 0; cursor: pointer; font-weight: 600; }
-        .footer-bottom { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2); text-align: center; font-size: 0.9rem; }
+        .footer-subscribe-form input { width: 100%; border: none; padding: 0.75rem; border-radius: 6px 0 0 6px; background: rgba(255,255,255,0.1); color: white; }
+        .footer-subscribe-form input::placeholder { color: rgba(255,255,255,0.5); }
+        .footer-subscribe-form button { border: none; background: var(--color-secondary-blue); color: white; padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; cursor: pointer; font-weight: 700; }
+        .footer-bottom { margin-top: 3rem; padding-top: 2rem; border-top: 0; text-align: left; font-size: 1rem; }
+        .footer-socials svg {
+            width: 20px;
+            height: 20px;
+            transition: color 0.3s ease;
+        }
+
     </style>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
@@ -349,21 +513,21 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            </div>
-        <div id="mobile-menu" class="mobile-menu"></div>
+        </div>
+        <div id="mobile-menu" class="mobile-menu hidden"></div>
     </header>
 
     <main>
         <section id="hero" class="hero-section">
             <div class="aqi-widget" id="aqi-widget">
-                <div class="aqi-title">AQI</div>
-                <div class="aqi-value" id="aqi-value">...</div>
-                <div class="aqi-text-wrapper">
+                <div class="aqi-title collapsible-item">AQI</div>
+                <div class="aqi-value" id="aqi-value"></div>
+                <div class="aqi-text-wrapper collapsible-item">
                     <div class="aqi-category" id="aqi-category">Fetching</div>
-                    <div class="aqi-city" id="aqi-city">...</div>
+                    <div class="aqi-city" id="aqi-city">Determining location...</div>
                 </div>
             </div>
-            
+
             <div class="hero-slide-container">
                 <div id="slide-1" class="hero-slide active" style="background-image: url('/utils/pic1.png');"></div>
                 <div id="slide-2" class="hero-slide" style="background-image: url('/utils/pic2.png');"></div>
@@ -381,10 +545,12 @@
         </section>
 
         <div class="hero-nav-links">
-            <a href="#impact">Our Impact</a>
-            <a href="#map">Interactive Map</a>
-            <a href="#chart">Latest Data</a>
-            <a href="#partners">Our Partners</a>
+            <div class="hero-nav-grid">
+                <a href="#impact" class="hero-nav-link">Our Impact</a>
+                <a href="#map" class="hero-nav-link">Interactive Map</a>
+                <a href="#chart" class="hero-nav-link">Latest Data</a>
+                <a href="#partners" class="hero-nav-link">Our Partners</a>
+            </div>
         </div>
 
         <section id="impact" class="impact-section container">
@@ -403,7 +569,7 @@
                     <p class="impact-item-text">Social Media Followers</p>
                 </div>
             </div>
-             <div style="padding-top: 120px; text-align: center;">
+            <div style="padding-top: 120px; text-align: center;">
                 <svg width="80" height="auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" >
                     <path fill="gray" d="M177.8 63.2l10 17.4c2.8 4.8 4.2 10.3 4.2 15.9v41.4c0 3.9 1.6 7.7 4.3 10.4c6.2 6.2 16.5 5.7 22-1.2l13.6-17c4.7-5.9 12.9-7.7 19.6-4.3l15.2 7.6c3.4 1.7 7.2 2.6 11 2.6c6.5 0 12.8-2.6 17.4-7.2l3.9-3.9c2.9-2.9 7.3-3.6 11-1.8l29.2 14.6c7.8 3.9 12.6 11.8 12.6 20.5c0 10.5-7.1 19.6-17.3 22.2l-35.4 8.8c-7.4 1.8-15.1 1.5-22.4-.9l-32-10.7c-3.3-1.1-6.7-1.7-10.2-1.7c-7 0-13.8 2.3-19.4 6.5L176 212c-10.1 7.6-16 19.4-16 32v28c0 26.5 21.5 48 48 48h32c8.8 0 16 7.2 16 16v48c0 17.7 14.3 32 32 32c10.1 0 19.6-4.7 25.6-12.8l25.6-34.1c8.3-11.1 12.8-24.6 12.8-38.4V318.6c0-3.9 2.6-7.3 6.4-8.2l5.3-1.3c11.9-3 20.3-13.7 20.3-26c0-7.1-2.8-13.9-7.8-18.9l-33.5-33.5c-3.7-3.7-3.7-9.7 0-13.4c5.7-5.7 14.1-7.7 21.8-5.1l14.1 4.7c12.3 4.1 25.7-1.5 31.5-13c3.5-7 11.2-10.8 18.9-9.2l27.4 5.5C432 112.4 351.5 48 256 48c-27.7 0-54 5.4-78.2 15.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"></path>
                 </svg>
@@ -413,7 +579,7 @@
 
         <section id="partners" class="partners-section">
             <h2 class="section-headline animate-on-scroll" style="margin-bottom: 20px;">Stronger Together</h2>
-            <p style="margin-bottom: 30px;" class="animate-on-scroll">We collaborate with leading organizations to maximize our impact and drive systemic change.</p>
+            <p style="margin-bottom: 30px;">We collaborate with leading organizations to maximize our impact and drive systemic change.</p>
             <div class="partners-slider">
                 <div class="slide-track">
                     <div class="slide"><img class="partner-logo" src="/utils/iqair.png" alt="Partner Logo" /></div>
@@ -441,10 +607,11 @@
                         <h2 class="section-headline" style="text-align: left; color: white;">Annual PM2.5 Concentration in 2024</h2>
                         <p>Our network provides a real-time snapshot of the air quality in major urban centers. Explore the map to see the current annual average PM2.5 levels.</p>
                         <div class="map-legend-items">
-                            <div class="legend-item"><span class="legend-color-box" style="background-color: var(--aqi-good);"></span> Good</div>
-                            <div class="legend-item"><span class="legend-color-box" style="background-color: var(--aqi-moderate);"></span> Moderate</div>
-                            <div class="legend-item"><span class="legend-color-box" style="background-color: var(--aqi-usg);"></span> Unhealthy (SG)</div>
-                            <div class="legend-item"><span class="legend-color-box" style="background-color: var(--aqi-unhealthy);"></span> Unhealthy</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-good);"></span> Good</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-moderate);"></span> Moderate</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-usg);"></span> Unhealthy (SG)</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-unhealthy);"></span> Unhealthy</div>
+                            <div class="legend-item" style="color: #DDE1E7;"><span class="legend-color-box" style="background-color: var(--aqi-very-unhealthy);"></span> Very Unhealthy</div>
                         </div>
                     </div>
                     <div class="map-container animate-on-scroll delay-1">
@@ -457,16 +624,16 @@
         </section>
 
         <section id="chart" class="dataviz-section">
-            <div class="container">
+            <div class="chart-wrapper animate-on-scroll">
                 <div class="chart-grid">
-                    <div class="chart-header animate-on-scroll">
-                        <h2 class="section-headline" style="text-align: left; margin: 0 0 1rem 0;">A Decade of Data</h2>
+                    <div class="chart-header">
+                        <h2 class="section-headline" style="text-align: left; color: var(--color-text-dark); margin: 0 0 10px 0;">A Decade of Data</h2>
                         <p>Our network has chronicled the air quality crisis across Pakistan. While yearly fluctuations exist, the trend is clear: annual pollution levels remain dangerously high, consistently exceeding WHO safe limits.</p>
                         <div id="chart-legend" class="chart-legend"></div>
                     </div>
-                    <div class="chart-container animate-on-scroll delay-1">
+                    <div class="chart-container">
                         <div class="chart-svg-container">
-                            <svg id="timeline-chart" class="chart-svg" viewBox="0 0 800 450"></svg>
+                            <svg id="timeline-chart" class="chart-svg" viewBox="0 0 800 400"></svg>
                         </div>
                     </div>
                 </div>
@@ -515,13 +682,13 @@
     </main>
 
     <footer id="footer" class="site-footer">
-        <div class="container">
+        <div class="container" style="padding-top: 5rem; padding-bottom: 4rem;">
             <div class="footer-grid">
                 <div class="footer-col">
                     <h4>About PAQI</h4>
-                    <p>The Pakistan Air Quality Initiative (PAQI) is an independent research and advocacy organization dedicated towards a breathable and healthy Pakistan, with robust scientific insights and data-driven solutions to overcome the air pollution crisis.</p>
+                    <p>The Pakistan Air Quality Initiative (PAQI) is an independent research and advocacy organization dedicated towards a breathable and healthy Pakistan, with robust scientific insights and data-driven solutions to overcome the air pollution crisis. Our vision is a future where every Pakistani breathes clean air, supported by informed policies and an engaged society.</p>
                 </div>
-                <div class="footer-col">
+                <div class="footer-col" style="padding-left: 3rem;">
                     <h4>Navigate</h4>
                     <ul>
                         <li><a href="#impact">Impact</a></li>
@@ -541,11 +708,12 @@
                 </div>
                 <div class="footer-col">
                     <h4>Let's talk</h4>
-                    <p>Get the latest air quality news and health advisories.</p>
+                    <p>Want to know more about PAQI? Enter your email and we'll get in touch.</p>
                     <form class="footer-subscribe-form">
                         <input type="email" placeholder="Your email">
                         <button type="submit">Go</button>
                     </form>
+
                     <div class="footer-socials">
                         <a href="https://www.instagram.com/pakairquality/" aria-label="Our Instagram Profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"></path></svg></a>
                         <a href="https://x.com/PakAirQuality/" aria-label="Our X Profile"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
@@ -556,197 +724,220 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 Pakistan Air Quality Initiative (پاکی).</p>
+                <p style="color: #a7a7a7;">&copy; 2024-25 Pakistan Air Quality Initiative (پاکی).</p>
             </div>
         </div>
     </footer>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- Refined Header & Mobile Menu Logic ---
-        const header = document.getElementById('main-header');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const desktopNav = document.querySelector('.header-nav');
-        
-        // Dynamically create mobile menu from desktop nav
-        const navLinks = desktopNav.querySelectorAll('a');
-        navLinks.forEach(link => { mobileMenu.appendChild(link.cloneNode(true)); });
-        const ctaButton = document.querySelector('.header-cta');
-        if (ctaButton) { mobileMenu.appendChild(ctaButton.cloneNode(true)); }
-
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('header-scrolled', window.scrollY > 50);
-        });
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('is-open');
-        });
-
-        // --- Refined AQI Widget Logic ---
-        const aqiWidget = document.getElementById('aqi-widget');
-        const headerContainer = document.querySelector('.header-container');
-
-        // Move widget from hero to header for correct desktop positioning
-        if (aqiWidget && headerContainer) {
-             headerContainer.appendChild(aqiWidget);
-        }
-
-        const aqiValueEl = document.getElementById('aqi-value');
-        const aqiCategoryEl = document.getElementById('aqi-category');
-        const aqiCityEl = document.getElementById('aqi-city');
-
-        if (aqiWidget) {
-            aqiWidget.addEventListener('click', () => {
-                aqiWidget.classList.toggle('is-collapsed');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Header & Mobile Menu Logic ---
+            const header = document.getElementById('main-header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const desktopNav = document.querySelector('.header-nav');
+            
+            // Dynamically create mobile menu from desktop nav
+            mobileMenu.innerHTML = '';
+            const navLinks = desktopNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                const mobileLink = document.createElement('a');
+                mobileLink.href = link.href;
+                mobileLink.textContent = link.textContent;
+                mobileMenu.appendChild(mobileLink);
             });
-        }
-        
-        // --- AQI Data Fetching Logic ---
-        function getAqiInfo(aqi) {
-            if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
-            if (aqi <= 100) return { category: 'Moderate', className: 'aqi-moderate' };
-            if (aqi <= 150) return { category: 'Unhealthy (SG)', className: 'aqi-usg' };
-            if (aqi <= 200) return { category: 'Unhealthy', className: 'aqi-unhealthy' };
-            if (aqi <= 300) return { category: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
-            return { category: 'Hazardous', className: 'aqi-hazardous' };
-        }
-        function fetchAqi(latitude, longitude) {
-            const apiUrl = `/api/aqi?lat=${latitude}&lon=${longitude}`;
-            fetch(apiUrl)
-                .then(response => response.ok ? response.json() : Promise.reject(`API Error: ${response.status}`))
-                .then(data => {
-                    if (data.status === 'success') {
-                        const { aqius } = data.data.current.pollution;
-                        const { city } = data.data;
-                        const aqiInfo = getAqiInfo(aqius);
-                        aqiValueEl.textContent = aqius;
-                        aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
-                        aqiCategoryEl.textContent = aqiInfo.category;
-                        aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
-                        aqiCityEl.textContent = city;
-                    } else { throw new Error('API returned non-success status'); }
-                })
-                .catch(error => {
-                    console.error('Error fetching AQI data:', error);
-                    aqiValueEl.textContent = '-';
-                    aqiCategoryEl.textContent = 'Unavailable';
-                    aqiCityEl.textContent = 'Could not load';
-                });
-        }
-        navigator.geolocation ? navigator.geolocation.getCurrentPosition(
-            pos => fetchAqi(pos.coords.latitude, pos.coords.longitude),
-            () => { console.error('Geolocation error.'); aqiCityEl.textContent = 'Lahore (Default)'; fetchAqi(31.5204, 74.3587); }
-        ) : (aqiCityEl.textContent = 'Lahore (Default)', fetchAqi(31.5204, 74.3587));
+            const ctaButton = document.querySelector('.header-cta');
+            if (ctaButton) {
+                const mobileCta = document.createElement('a');
+                mobileCta.href = ctaButton.href;
+                mobileCta.textContent = ctaButton.textContent;
+                mobileMenu.appendChild(mobileCta);
+            }
 
-
-        // --- Hero Slider Logic ---
-        const slides = [ { id: 'slide-1', title: 'Clearing the Air for a Healthier Pakistan', text: "Air pollution is the nation's leading environmental threat. We are dedicated to providing the data and tools needed to drive change.", button: 'Learn About The Crisis &rarr;', }, { id: 'slide-2', title: 'Data-Driven Action, Real-Time Impact', text: 'Our network of over 100 sensors across Pakistan provides transparent, real-time air quality data to citizens, researchers, and policymakers.', button: 'View Our Live Map &rarr;', }, { id: 'slide-3', title: 'Protecting Our Future Generations', text: 'Every citizen deserves the right to breathe clean air. Our initiatives focus on public health awareness and safeguarding vulnerable communities.', button: 'See Our Impact &rarr;', }, { id: 'slide-4', title: 'A Breath of Fresh Air is Possible', text: 'Through collaborative effort, scientific research, and public engagement, we can build a future with clear skies for Pakistan.', button: 'Get Involved &rarr;', }, ];
-        let currentSlide = 0;
-        const heroTextContent = document.getElementById('hero-text-content');
-        function changeSlide() {
-            document.getElementById(slides[currentSlide].id).classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            document.getElementById(slides[currentSlide].id).classList.add('active');
-            heroTextContent.style.opacity = '0';
-            setTimeout(() => {
-                const slideData = slides[currentSlide];
-                heroTextContent.innerHTML = `<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>`;
-                heroTextContent.style.opacity = '1';
-                heroTextContent.style.transition = 'opacity 1s ease-in-out';
-            }, 800);
-        }
-        setInterval(changeSlide, 6000);
-
-        // --- General Animation Observer ---
-        const animationObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.animate-on-scroll').forEach(el => animationObserver.observe(el));
-        
-        // --- Data for Map & Chart ---
-        const chartData = { Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58}, Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22}, Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78}, Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41} };
-        const cityColors = { Lahore: 'var(--color-lahore)', Karachi: 'var(--color-karachi)', Peshawar: 'var(--color-peshawar)', 'Islamabad': 'var(--color-islamabad)' };
-
-        // --- D3.js Chart Logic ---
-        function drawChart() {
-            const svg = d3.select("#timeline-chart").html("");
-            const margin = {top: 40, right: 20, bottom: 40, left: 50};
-            const fullWidth = svg.node().getBoundingClientRect().width;
-            let fullHeight = svg.node().getBoundingClientRect().height;
-            if (fullHeight <= 0) fullHeight = fullWidth / (800 / 450);
-            
-            const width = fullWidth - margin.left - margin.right;
-            const height = fullHeight - margin.top - margin.bottom;
-            
-            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-            const years = Object.keys(Object.values(chartData)[0]);
-            const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
-            const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(Object.values)) * 1.1]);
-            const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).curve(d3.curveMonotoneX);
-            
-            g.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(15));
-            g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).ticks(5).tickSize(-width));
-            
-            Object.keys(chartData).forEach((city) => {
-                const data = years.map(year => ({ year, value: chartData[city][year] }));
-                const path = g.append("path").datum(data).attr("class", "data-line").attr("id", `line-${city}`).attr("d", line).style("stroke", cityColors[city]);
-                const pathLength = path.node().getTotalLength();
-                path.attr("stroke-dasharray", pathLength).attr("stroke-dashoffset", pathLength);
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('header-scrolled', window.scrollY > 50);
             });
 
-            d3.select("#chart-legend").html("");
-            Object.keys(cityColors).forEach(city => {
-                d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city)
-                  .html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
 
-            const chartObserver = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    g.selectAll(".data-line").transition().duration(2000).ease(d3.easeCubicOut).delay((d, i) => i * 100).attr("stroke-dashoffset", 0);
-                    chartObserver.unobserve(entries[0].target);
+            // --- AQI Widget Logic (Corrected & Secure) ---
+            const aqiValueEl = document.getElementById('aqi-value');
+            const aqiCategoryEl = document.getElementById('aqi-category');
+            /* const aqiPollutantEl = document.getElementById('aqi-pollutant'); */
+            const aqiCityEl = document.getElementById('aqi-city');
+
+            function getAqiInfo(aqi) {
+                if (aqi <= 50) return { category: 'Good', className: 'aqi-good' };
+                if (aqi <= 100) return { category: 'Moderate', className: 'aqi-moderate' };
+                if (aqi <= 150) return { category: 'Unhealthy (SG)', className: 'aqi-usg' };
+                if (aqi <= 200) return { category: 'Unhealthy', className: 'aqi-unhealthy' };
+                if (aqi <= 300) return { category: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
+                return { category: 'Hazardous', className: 'aqi-hazardous' };
+            }
+
+            function fetchAqi(latitude, longitude) {
+                // This relative URL calls your secure backend proxy
+                const apiUrl = `/api/aqi?lat=${latitude}&lon=${longitude}`;
+                
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const pollution = data.data.current.pollution;
+                            const aqi = pollution.aqius;
+                            const pm25 = pollution.p2?.conc ?? 'N/A';
+                            const city = data.data.city;
+                            const state = data.data.state;
+                            const aqiInfo = getAqiInfo(aqi);
+
+                            aqiValueEl.textContent = aqi;
+                            aqiValueEl.className = `aqi-value ${aqiInfo.className}`;
+                            aqiCategoryEl.textContent = aqiInfo.category;
+                            aqiCategoryEl.className = `aqi-category ${aqiInfo.className}`;
+                            /* aqiPollutantEl.innerHTML = `PM2.5: <strong>${pm25}</strong> µg/m³`; */
+                            aqiCityEl.textContent = `${city}`;
+                        } else {
+                            throw new Error('API returned non-success status');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching AQI data:', error);
+                        aqiValueEl.textContent = '-';
+                        aqiCategoryEl.textContent = 'Unavailable';
+                        aqiCityEl.textContent = 'Could not load data. Is the server running?';
+                        //aqiPollutantEl.textContent = '';
+                    });
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        fetchAqi(position.coords.latitude, position.coords.longitude);
+                    },
+                    (error) => {
+                        console.error('Geolocation error:', error);
+                        aqiCityEl.textContent = 'Showing data for Lahore';
+                        fetchAqi(31.5204, 74.3587); // Fallback to Lahore
+                    }
+                );
+            } else {
+                aqiCityEl.textContent = 'Geolocation not supported. Showing Lahore.';
+                fetchAqi(31.5204, 74.3587); // Fallback to Lahore
+            }
+
+            // --- Hero Slider Logic ---
+            const slides = [ { id: 'slide-1', title: 'Clearing the Air for a Healthier Pakistan', text: "Air pollution is the nation's leading environmental threat. We are dedicated to providing the data and tools needed to drive change.", button: 'Learn About The Crisis &rarr;', }, { id: 'slide-2', title: 'Data-Driven Action, Real-Time Impact', text: 'Our network of over 100 sensors across Pakistan provides transparent, real-time air quality data to citizens, researchers, and policymakers.', button: 'View Our Live Map &rarr;', }, { id: 'slide-3', title: 'Protecting Our Future Generations', text: 'Every citizen deserves the right to breathe clean air. Our initiatives focus on public health awareness and safeguarding vulnerable communities.', button: 'See Our Impact &rarr;', }, { id: 'slide-4', title: 'A Breath of Fresh Air is Possible', text: 'Through collaborative effort, scientific research, and public engagement, we can build a future with clear skies for Pakistan.', button: 'Get Involved &rarr;', }, ];
+            let currentSlide = 0;
+            const heroTextContent = document.getElementById('hero-text-content');
+            function changeSlide() {
+                document.getElementById(slides[currentSlide].id).classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                document.getElementById(slides[currentSlide].id).classList.add('active');
+                heroTextContent.style.opacity = '0';
+                setTimeout(() => {
+                    const slideData = slides[currentSlide];
+                    heroTextContent.innerHTML = `<div class="hero-text-container"><h1>${slideData.title}</h1><p>${slideData.text}</p><a href="#map" class="cta-button">${slideData.button}</a></div>`;
+                    heroTextContent.style.opacity = '1';
+                    heroTextContent.style.transition = 'opacity 1s ease-in-out';
+                }, 800);
+            }
+            setInterval(changeSlide, 6000);
+
+            // --- General Animation Observer ---
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => animationObserver.observe(el));
+            
+            // --- Data for Map & Chart ---
+            const chartData = { Lahore: {"2017":196.27,"2018":117.98,"2019":100.02,"2020":83.10,"2021":90.99,"2022":107.97,"2023":105.91,"2024":104.58}, Karachi: {"2017":38.83,"2018":47.92,"2019":37.75,"2020":54.27,"2021":58.19,"2022":48.69,"2023":52.20,"2024":46.22}, Peshawar: {"2017":62.54,"2018":76.79,"2019":64.74,"2020":43.87,"2021":101.25,"2022":95.92,"2023":84.01,"2024":95.78}, Islamabad: {"2017":41.78,"2018":44.07,"2019":42.38,"2020":44.42,"2021":47.00,"2022":41.79,"2023":51.11,"2024":54.41} };
+            const cityColors = { Lahore: 'var(--color-lahore)', Karachi: 'var(--color-karachi)', Peshawar: 'var(--color-peshawar)', 'Islamabad': 'var(--color-islamabad)' };
+
+            // --- D3.js Chart Logic ---
+            function drawChart() {
+                const svg = d3.select("#timeline-chart"),
+                    margin = {top: 60, right: 20, bottom: 60, left: 50};
+
+                // This part is essential for responsiveness
+                const fullWidth = svg.node().getBoundingClientRect().width;
+                let fullHeight = svg.node().getBoundingClientRect().height;
+
+                const width = fullWidth - margin.left - margin.right;
+                let height = fullHeight - margin.top - margin.bottom;
+
+                if (height <= 0) {
+                    height = (fullWidth / 2) - margin.top - margin.bottom;
                 }
-            }, { threshold: 0.5 });
-            chartObserver.observe(svg.node());
-            
-            d3.selectAll(".legend-item").on("click", function () {
-                const city = d3.select(this).attr("data-city");
-                d3.select(this).classed("is-dimmed", !d3.select(this).classed("is-dimmed"));
-                d3.select(`#line-${city}`).classed("is-dimmed", !d3.select(this).classed("is-dimmed"));
-            });
-        }
-        drawChart();
-        window.addEventListener('resize', drawChart);
+                const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+                const years = Object.keys(Object.values(chartData)[0]), cities = Object.keys(chartData);
+                const x = d3.scalePoint().range([0, width]).padding(0.5).domain(years);
+                const y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(Object.values(chartData).flatMap(d => Object.values(d))) * 1.1]);
+                const line = d3.line().x(d => x(d.year)).y(d => y(d.value)).defined(d => d.value !== undefined);
+                g.append("g").attr("class", "x-axis").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickSize(0).tickPadding(10));
+                const yAxisGroup = g.append("g").attr("class", "y-axis").call(d3.axisLeft(y).tickValues([0, 5, 50, 100, 150, 200]).tickSize(-width).tickFormat(d => d === 5 ? "5 (WHO)" : d));
+                yAxisGroup.select(".domain").remove();
+                yAxisGroup.selectAll(".tick line").attr("stroke", "var(--color-border)").filter(d => d === 5).attr("stroke-dasharray", "4 4");
+                g.append("text").attr("transform", `rotate(-90)`).attr("y", -20).attr("x", -height / 2).attr("dy", "-2em").style("text-anchor", "middle").style("fill", "grey").style("font-size", "10px").style("font-family", "var(--font-main)").text("PM2.5 conc. (µg/m³)");
+                const chartArea = g.append("g").attr("class", "chart-area");
+                cities.forEach((city) => {
+                    const data = years.map(year => ({ year: year, value: chartData[city][year] }));
+                    d3.select("#chart-legend").append("div").attr("class", "legend-item").attr("data-city", city).html(`<div class="legend-color" style="background-color: ${cityColors[city]}"></div>${city}`);
+                    const path = chartArea.append("path").datum(data).attr("class", "data-line").attr("id", `line-${city}`).attr("d", line).style("stroke", cityColors[city]);
+                    const pathLength = path.node().getTotalLength();
+                    path.attr("stroke-dasharray", pathLength + " " + pathLength).attr("stroke-dashoffset", pathLength);
+                    chartArea.selectAll(`.point-${city}`).data(data.filter(d => d.value !== undefined)).enter().append("circle").attr("class", `data-point point-${city}`).attr("cx", d => x(d.year)).attr("cy", d => y(d.value)).attr("r", 4).style("stroke", cityColors[city]).on("mouseover", function(event, d) { d3.select(this).attr("r", 6); g.append("text").attr("class", "tooltip-text").attr("x", x(d.year)).attr("y", y(d.value) - 10).attr("text-anchor", "middle").text(`${d.value.toFixed(1)}`); }).on("mouseout", function() { d3.select(this).attr("r", 4); g.select(".tooltip-text").remove(); });
+                });
+                const chartObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) { d3.selectAll(".data-line").transition().duration(2000).ease(d3.easeCubic).delay((d, i) => i * 150).attr("stroke-dashoffset", 0); chartObserver.unobserve(entry.target); } });
+                }, { threshold: 0.5 });
+                chartObserver.observe(document.getElementById('timeline-chart'));
+                d3.selectAll(".legend-item").on("click", function () { const city = d3.select(this).attr("data-city"), isActive = d3.select(this).classed("is-dimmed"); d3.select(this).classed("is-dimmed", !isActive); d3.select(`#line-${city}`).classed("is-dimmed", !isActive); });
+            }
+            drawChart();
 
-        // --- PNG Map Logic ---
-        const mapLayer = document.getElementById('map-interactive-layer');
-        const mapTooltip = document.getElementById('map-tooltip');
-        if (mapLayer) {
-            const mapCityData = { 'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Islamabad'] }, 'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] }, 'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Peshawar'] }, 'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] }, };
-            Object.entries(mapCityData).forEach(([city, data]) => {
-                const marker = document.createElement('div');
-                marker.className = 'map-marker';
-                marker.dataset.city = city;
-                Object.assign(marker.style, { top: data.top, left: data.left, '--marker-color': data.color });
-                mapLayer.appendChild(marker);
-            });
-            mapLayer.addEventListener('mouseover', e => {
-                if (!e.target.classList.contains('map-marker')) return;
-                const city = e.target.dataset.city;
-                const data = mapCityData[city];
-                const level = data.aqi > 55 ? 'Unhealthy' : data.aqi > 35 ? 'Unhealthy (SG)' : data.aqi > 5 ? 'Moderate' : 'Good';
-                mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit"> µg/m³</span></p><small>${level}</small>`;
-                const markerRect = e.target.getBoundingClientRect();
-                const mapRect = mapLayer.getBoundingClientRect();
-                mapTooltip.style.left = `${markerRect.left - mapRect.left - mapTooltip.offsetWidth / 2 + markerRect.width / 2}px`;
-                mapTooltip.style.top = `${markerRect.top - mapRect.top - mapTooltip.offsetHeight - 15}px`;
-                mapTooltip.classList.add('is-visible');
-            });
-            mapLayer.addEventListener('mouseout', e => {
-                if (e.target.classList.contains('map-marker')) mapTooltip.classList.remove('is-visible');
-            });
-        }
-    });
+            // --- PNG Map Logic ---
+            const mapLayer = document.getElementById('map-interactive-layer');
+            const mapTooltip = document.getElementById('map-tooltip');
+            if (mapLayer) {
+                const mapCityData = { 'Islamabad': { top: '30%', left: '68%', aqi: Math.round(chartData['Islamabad']['2024']), color: cityColors['Islamabad'] }, 'Lahore': { top: '45%', left: '72.5%', aqi: Math.round(chartData['Lahore']['2024']), color: cityColors['Lahore'] }, 'Peshawar': { top: '26%', left: '61%', aqi: Math.round(chartData['Peshawar']['2024']), color: cityColors['Peshawar'] }, 'Karachi': { top: '90%', left: '45%', aqi: Math.round(chartData['Karachi']['2024']), color: cityColors['Karachi'] }, };
+                Object.keys(mapCityData).forEach(city => {
+                    const data = mapCityData[city];
+                    const marker = document.createElement('div');
+                    marker.className = 'map-marker';
+                    marker.dataset.city = city;
+                    marker.style.top = data.top;
+                    marker.style.left = data.left;
+                    marker.style.setProperty('--marker-color', data.color);
+                    mapLayer.appendChild(marker);
+                });
+                document.querySelectorAll('.map-marker').forEach(marker => {
+                    marker.addEventListener('mouseenter', e => {
+                        const city = e.currentTarget.dataset.city;
+                        const data = mapCityData[city];
+                        let level = 'Good';
+                        if (data.aqi > 5) level = 'Moderate'; if (data.aqi > 35) level = 'Unhealthy for Sensitive Groups'; if (data.aqi > 55) level = 'Unhealthy';
+                        mapTooltip.innerHTML = `<h4>${city}</h4><p>2024 Annual Avg: <span class="aqi-value" style="color:${data.color};">${data.aqi}</span><span class="unit">µg/m³ PM2.5</span></p><small>${level}</small>`;
+                        mapTooltip.style.left = `${e.currentTarget.offsetLeft - mapTooltip.offsetWidth / 2 + e.currentTarget.offsetWidth / 2}px`;
+                        mapTooltip.style.top = `${e.currentTarget.offsetTop - mapTooltip.offsetHeight - 15}px`;
+                        mapTooltip.classList.add('is-visible');
+                    });
+                    marker.addEventListener('mouseleave', () => mapTooltip.classList.remove('is-visible'));
+                });
+            }
+
+            // --- AQI Widget Collapse Logic ---
+            const aqiWidget = document.getElementById('aqi-widget');
+            if (aqiWidget) {
+                aqiWidget.addEventListener('click', () => {
+                    aqiWidget.classList.toggle('collapsed');
+                });
+            }
+        });
     </script>
 </body>
 </html>
