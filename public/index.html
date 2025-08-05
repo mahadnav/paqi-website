@@ -368,11 +368,12 @@
         /* --- Mobile Styles --- */
         @media (max-width: 767px) {
             .chart-svg {
-                width: 500px;
-                height: auto;
+                width: auto;
+                height: 500px;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch; 
-                padding-bottom: 5px;               
+                padding-bottom: 5px;     
+                max-width: fit-content;          
             }
             .chart-container {flex: 1 1 50%; padding-top: -30px; padding-bottom: 25px;}
         }
